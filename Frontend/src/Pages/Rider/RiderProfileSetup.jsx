@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import { setRiderInfo } from '../../Redux/slice/riderSlice'
 import { axiosInstance } from '../../api/axiosInstance'
+import { RIDER_DASHBOARD, RIDER_LOGIN, RIDER_PROFILE_SETUP2 } from '../../RoutePaths/RoutePaths'
 
 const RiderProfileSetup = () => {
   const dispatch = useDispatch()
@@ -27,7 +28,7 @@ const RiderProfileSetup = () => {
               setResult('Sucessfully added')
               dispatch(setRiderInfo(res.data.rider))
                 setTimeout(() => {
-                    navigate('/RiderProfileSetup2')
+                    navigate(RIDER_PROFILE_SETUP2)
                 }, 2000);
                 
             }else{
@@ -48,7 +49,7 @@ const RiderProfileSetup = () => {
         dispatch(RiderLogout())
        
         setTimeout(()=>{
-            navigate('/RiderLogin')
+            navigate(RIDER_LOGIN)
         },3000)
         toast.success("Logout", { autoClose: 2000 });
     } catch (error) {
@@ -58,7 +59,7 @@ const RiderProfileSetup = () => {
 
     const handleNavigate = ()=>{
       try {
-        navigate('/RiderDashBoard')
+        navigate(RIDER_DASHBOARD)
       } catch (error) {
         console.log(error);
       }

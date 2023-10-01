@@ -1,8 +1,10 @@
-import React,{useState} from 'react'
+import React,{useState,useEffect} from 'react'
 import { Link } from 'react-router-dom'
 import { useNavigate } from 'react-router-dom'
 import { axiosInstance } from '../../api/axiosInstance'
 import { toast } from 'react-toastify'
+import { RIDER_DASHBOARD, RIDER_LOGIN } from '../../RoutePaths/RoutePaths'
+import { useSelector } from 'react-redux'
 
 const RiderSignup = () => {
     const [username,setUsername] = useState('')
@@ -14,6 +16,14 @@ const RiderSignup = () => {
     const [isValid, setIsValid] = useState(false);
 
     const navigate = useNavigate()
+
+    const {riderCred} = useSelector((state)=>state.rider)
+
+    useEffect(()=>{
+        if (riderCred) {
+            navigate(RIDER_DASHBOARD)
+        }
+    },[navigate,riderCred])
 
     const submitHandler =(e)=>{
         e.preventDefault()
@@ -30,7 +40,7 @@ const RiderSignup = () => {
                 if (res.data.message) {
                     setTimeout(() => {
                         
-                        navigate('/RiderLogin')
+                        navigate(RIDER_LOGIN)
                     }, 2000);
                     toast.success('Succefully created')
                 }

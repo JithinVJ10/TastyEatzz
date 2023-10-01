@@ -15,6 +15,7 @@ import { Link,useNavigate } from 'react-router-dom'
 import DropdownButton from '../Buttons/DropDown'
 import { useSelector, useDispatch } from 'react-redux'
 import { logout } from '../../../Redux/slice/userSlice'
+import { ADMIN_LOGIN, HOME, USER_LOGIN } from '../../../RoutePaths/RoutePaths'
 
 const products = [
   { name: 'Analytics', description: 'Get a better understanding of your traffic', href: '#', icon: ChartPieIcon },
@@ -47,7 +48,7 @@ export default function Header(props) {
         dispatch(logout())
         toast.success("Logout")
         setTimeout(()=>{
-            navigate('/userLogin')
+            navigate(ADMIN_LOGIN)
         },3000)
     } catch (error) {
         console.log(error);
@@ -58,7 +59,7 @@ export default function Header(props) {
     <header className="bg-white">
       <nav className="mx-auto flex max-w-7xl items-center justify-between p-6 lg:px-8" aria-label="Global">
         <div className="flex lg:flex-1">
-          <Link to='/'>
+          <Link to={HOME}>
           <a href="#" className="-m-1.5 p-1.5 flex">
             
             <img className="h-8 w-auto mr-1.5" src="" alt="" />
@@ -194,7 +195,7 @@ export default function Header(props) {
                   href="#"
                   className="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
                 >
-                  {userCred? <p onClick={()=>handleLogout()}>Logout</p> : <Link to='/userLogin'><p>Login</p></Link> }
+                  {userCred? <p onClick={()=>handleLogout()}>Logout</p> : <Link to={USER_LOGIN}><p>Login</p></Link> }
                 </a>
               </div>
             </div>

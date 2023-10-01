@@ -1,5 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+import { HOME } from '../../RoutePaths/RoutePaths'
 
 const ErrorPage = () => {
     
@@ -16,7 +17,7 @@ const ErrorPage = () => {
           </p>
           <div className="mt-4">
             <Link
-              to="/"
+              to={HOME}
               className="px-5 py-2 bg-white rounded-md hover:bg-gray-100"
             >
               Home

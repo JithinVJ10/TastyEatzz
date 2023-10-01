@@ -5,6 +5,7 @@ import { ChevronDownIcon } from '@heroicons/react/20/solid'
 import { AdminLogout } from '../../Redux/slice/adminSlice'
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate, Link } from 'react-router-dom'
+import { ADMIN_LOGIN } from '../../RoutePaths/RoutePaths'
 
 
 function classNames(...classes) {
@@ -22,7 +23,7 @@ export default function DropdownButton(props) {
             dispatch(AdminLogout())
             toast.success("Logout")
             setTimeout(()=>{
-                navigate('/AdminLogin')
+                navigate(ADMIN_LOGIN)
             },3000)
         } catch (error) {
             console.log(error);

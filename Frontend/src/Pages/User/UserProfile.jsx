@@ -3,6 +3,7 @@ import Header from '../../Components/User/Header/Header'
 import { useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 import ProfileSideNav from '../../Components/User/Profile/ProfileSideNav'
+import { USER_EDIT_PROFILE } from '../../RoutePaths/RoutePaths'
 
 const UserProfile = () => {
     const {userCred} = useSelector((state)=> state.user)
@@ -25,7 +26,7 @@ const UserProfile = () => {
                   </p>
               </div>
               <div className='mt-3'>
-                <Link to='/EditProfile'>
+                <Link to={USER_EDIT_PROFILE}>
                   <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mr-3">
                     Edit
                   </button>

@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { setUserInfo } from '../../Redux/slice/userSlice'
 import {toast} from 'react-toastify'
 import { GoogleLogin } from '@react-oauth/google';
+import { LOGGED_IN_HOME, USER_SIGNUP } from '../../RoutePaths/RoutePaths'
 
 
 const Login = () => {
@@ -22,7 +23,7 @@ const Login = () => {
 
     useEffect(()=>{
         if (userCred) {
-          navigate('/LoggedInHome')
+          navigate(LOGGED_IN_HOME)
         }
     },[navigate,userCred])
 
@@ -37,7 +38,7 @@ const Login = () => {
               dispatch(setUserInfo(res.data.userData));
               toast.success(res.data.message);
               setTimeout(() => {
-                navigate('/LoggedInHome');
+                navigate(LOGGED_IN_HOME);
               }, 3000);
             } else if(res.data.error){
               
@@ -78,7 +79,7 @@ const Login = () => {
                 dispatch(setUserInfo(res.data.userData))
                 console.log(res.data.userData);
                 localStorage.setItem('token',JSON.stringify(res.data.token))
-                navigate('/LoggedInHome')
+                navigate(LOGGED_IN_HOME)
                 
                 toast.success("Login succesfully", { autoClose: 2000 });
                 
@@ -164,7 +165,7 @@ const Login = () => {
                 <p className="mt-8 text-xs font-light text-center text-gray-700">
                     {" "}
                     Don't have an account?{" "}
-                    <Link to="/userSignup">
+                    <Link to={USER_SIGNUP}>
                     <span className="font-medium text-purple-600 hover:underline">
                         Sign up
                     </span>

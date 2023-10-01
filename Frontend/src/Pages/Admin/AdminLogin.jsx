@@ -3,6 +3,7 @@ import { useDispatch,useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import { axiosInstance } from '../../api/axiosInstance'
 import { setAdminInfo } from '../../Redux/slice/adminSlice'
+import { ADMIN_DASHBOARD } from '../../RoutePaths/RoutePaths'
 
 const AdminLogin = () => {
     const [adminEmail,setAdminEmail] = useState('')
@@ -17,7 +18,7 @@ const AdminLogin = () => {
 
     useEffect(()=>{
         if (adminCred) {
-            navigate('/AdminDashboard')
+            navigate(ADMIN_DASHBOARD)
         }
     })
 
@@ -45,7 +46,7 @@ const AdminLogin = () => {
             if (res.data.email) {
                 dispatch(setAdminInfo(res.data.email))
                 localStorage.setItem('adminToken',JSON.stringify(res.data.token))
-                navigate('/AdminDashboard')
+                navigate(ADMIN_DASHBOARD)
             }
         }).catch((error)=>{
             console.log(error);

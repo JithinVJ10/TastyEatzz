@@ -4,6 +4,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import {toast} from 'react-toastify'
 import { axiosInstance } from '../../api/axiosInstance'
 import { setRiderInfo } from '../../Redux/slice/riderSlice'
+import { RIDER_DASHBOARD, RIDER_PROFILE_SETUP } from '../../RoutePaths/RoutePaths'
 
 
 const RiderLogin = () => {
@@ -19,7 +20,7 @@ const RiderLogin = () => {
 
     useEffect(()=>{
       if (riderCred) {
-        navigate('/RiderProfileSetup')
+        navigate(RIDER_DASHBOARD)
       }
     },[navigate,riderCred])
 
@@ -34,7 +35,7 @@ const RiderLogin = () => {
                 dispatch(setRiderInfo(res.data.rider))
                 console.log(res.data.riderData);
                 localStorage.setItem('riderToken',JSON.stringify(res.data.token))
-                navigate('/RiderProfileSetup')
+                navigate(RIDER_PROFILE_SETUP)
                 
                 toast.success("Login succesfully", { autoClose: 2000 });
                 

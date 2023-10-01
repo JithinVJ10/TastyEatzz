@@ -3,6 +3,7 @@ import Header from '../../Components/Rider/RiderHeader'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 import RiderProfileSideNav from '../../Components/Rider/RiderProfileSideNav'
+import { EDIT_RIDER_PROFILE } from '../../RoutePaths/RoutePaths'
 
 const RiderProfile = () => {
     const {riderCred} = useSelector((state)=> state.rider)
@@ -25,7 +26,7 @@ const RiderProfile = () => {
                   </p>
               </div>
               <div className='mt-3'>
-                <Link to='/EditRiderProfile'>
+                <Link to={EDIT_RIDER_PROFILE}>
                   <button className="bg-green-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mr-3">
                     Edit
                   </button>

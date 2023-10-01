@@ -8,6 +8,8 @@ export const USER_PROFILE = '/UserProfile';
 export const USER_ADDRESS = '/UserAddress';
 export const USER_ORDER = '/UserOrder';
 export const USER_EDIT_PROFILE = '/EditProfile';
+export const USER_PAYMENT = '/UserPayment'
+export const USER_WISHLIST = '/UserWishlist'
 
 
 // admin

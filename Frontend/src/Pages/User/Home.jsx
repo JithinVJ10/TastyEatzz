@@ -4,6 +4,7 @@ import ProductCard from '../../Components/User/ProductsList/ProductCard'
 import HeaderBeforeLogin from '../../Components/User/Header/HeaderBeforeLogin'
 import { useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
+import { LOGGED_IN_HOME } from '../../RoutePaths/RoutePaths'
 
 const Home = () => {
   const {userCred} = useSelector((state)=> state.user)
@@ -12,7 +13,7 @@ const Home = () => {
 
   useEffect(()=>{
     if (userCred) {
-      navigate('/LoggedInHome')
+      navigate(LOGGED_IN_HOME)
     }
   },[])
 

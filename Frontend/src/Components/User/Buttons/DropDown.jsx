@@ -5,6 +5,7 @@ import { ChevronDownIcon } from '@heroicons/react/20/solid'
 import { logout } from '../../../Redux/slice/userSlice'
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate, Link } from 'react-router-dom'
+import { USER_LOGIN, USER_PROFILE } from '../../../RoutePaths/RoutePaths'
 
 
 function classNames(...classes) {
@@ -22,7 +23,7 @@ export default function DropdownButton(props) {
             dispatch(logout())
             toast.success("Logout")
             setTimeout(()=>{
-                navigate('/userLogin')
+                navigate(USER_LOGIN)
             },3000)
         } catch (error) {
             console.log(error);
@@ -50,7 +51,7 @@ export default function DropdownButton(props) {
           <div className="py-1">
             <Menu.Item>
               {({ active }) => (
-                <Link to='/UserProfile'>
+                <Link to={USER_PROFILE}>
                   <p
                     
                     className={classNames(

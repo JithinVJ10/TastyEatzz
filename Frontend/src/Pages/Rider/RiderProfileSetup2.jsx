@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom'
 import { setRiderInfo } from '../../Redux/slice/riderSlice'
 import { RiderLogout } from '../../Redux/slice/riderSlice'
 import { axiosInstance } from '../../api/axiosInstance'
+import { RIDER_DASHBOARD, RIDER_LOGIN } from '../../RoutePaths/RoutePaths'
 
 const RiderProfileSetup2 = () => {
    const [Acc_HolderName, setAccName] = useState()
@@ -21,7 +22,7 @@ const RiderProfileSetup2 = () => {
       dispatch(RiderLogout())
      
       setTimeout(()=>{
-          navigate('/RiderLogin')
+          navigate(RIDER_LOGIN)
       },3000)
       toast.success("Logout", { autoClose: 2000 });
   } catch (error) {
@@ -37,7 +38,7 @@ const RiderProfileSetup2 = () => {
               setResult('Sucessfully added')
               dispatch(setRiderInfo(res.data.rider))
                 setTimeout(() => {
-                    navigate('/RiderDashBoard')
+                    navigate(RIDER_DASHBOARD)
                 }, 2000);
                 
             }else{

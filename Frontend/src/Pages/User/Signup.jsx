@@ -4,6 +4,7 @@ import { axiosInstance } from '../../api/axiosInstance'
 import { useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify'
 import { GoogleLogin } from '@react-oauth/google'
+import { USER_LOGIN } from '../../RoutePaths/RoutePaths'
 
 const SignUp = () => {
     const [username,setUsername] = useState('')
@@ -39,7 +40,7 @@ const SignUp = () => {
       
           if (response.data.message) {
             setTimeout(() => {
-              navigate('/userLogin');
+              navigate(USER_LOGIN);
             }, 2000);
             setErr('Success')
           }
@@ -71,7 +72,7 @@ const SignUp = () => {
               toast.success(res.data.message, {duration : 2000 , style : {color : '#fff' , background : 'black'}});
 
               setTimeout(() => {
-                navigate('/userLogin');
+                navigate(USER_LOGIN);
               }, 3000);
             }
           }).catch((err) => console.log(err, 'axios catch err google signup')

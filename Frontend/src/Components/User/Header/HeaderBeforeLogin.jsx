@@ -7,6 +7,7 @@ import {
 import {  PhoneIcon, PlayCircleIcon } from '@heroicons/react/20/solid'
 
 import { Link } from 'react-router-dom'
+import { HOME, USER_LOGIN, USER_SIGNUP } from '../../../RoutePaths/RoutePaths'
 
 
 const callsToAction = [
@@ -25,7 +26,7 @@ export default function Header(props) {
     <header className="bg-white">
       <nav className="mx-auto flex max-w-7xl items-center justify-between p-6 lg:px-8" aria-label="Global">
         <div className="flex lg:flex-1">
-          <Link to='/'>
+          <Link to={HOME}>
           <div className="-m-1.5 p-1.5 flex">
             
             <p className="font-bold text-xl">TastyEatzz</p>
@@ -58,7 +59,7 @@ export default function Header(props) {
         <div className="fixed inset-0 z-10" />
         <Dialog.Panel className="fixed inset-y-0 right-0 z-10 w-full overflow-y-auto bg-white px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10">
           <div className="flex items-center justify-between">
-          <Link to='/'>
+          <Link to={HOME}>
             <p  className="-m-1.5 p-1.5">
               <span className="sr-only">TastyEatzz</span>
             </p>
@@ -77,7 +78,7 @@ export default function Header(props) {
             <div className="-my-6 divide-y divide-gray-500/10">
 
               <div className="py-6">
-                <Link to={props.status === 'Signup' ? '/userSignup' : '/userLogin'}>
+                <Link to={props.status === 'Signup' ? USER_SIGNUP : USER_LOGIN}>
                   <p className="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50">
                     {props.status} <span aria-hidden="true">&rarr;</span>
                   </p>
