@@ -10,6 +10,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import DropdownButton from './RiderDropDown'
 import { useDispatch, useSelector } from 'react-redux'
 import { RiderLogout } from '../../Redux/slice/riderSlice'
+import { RIDER_DASHBOARD, RIDER_LOGIN } from '../../RoutePaths/RoutePaths'
 
 const callsToAction = [
   { name: 'Watch demo', href: '#', icon: PlayCircleIcon },
@@ -33,7 +34,7 @@ export default function Header(props) {
         dispatch(RiderLogout())
         
         setTimeout(()=>{
-            navigate('/RiderLogin')
+            navigate(RIDER_LOGIN)
         },3000)
     } catch (error) {
         console.log(error);
@@ -44,7 +45,7 @@ export default function Header(props) {
     <header className="bg-white">
       <nav className="mx-auto flex max-w-7xl items-center justify-between p-6 lg:px-8" aria-label="Global">
         <div className="flex lg:flex-1">
-          <Link to='/RiderDashBoard'>
+          <Link to={RIDER_DASHBOARD}>
           <div className="-m-1.5 p-1.5 ">
             
             <p className="font-bold text-xl">TastyEatzz</p>
@@ -90,7 +91,7 @@ export default function Header(props) {
             <div className="-my-6 divide-y divide-gray-500/10">
 
               <div className="py-6">
-              {riderCred? <p onClick={()=>handleLogout()}>Logout</p> : <Link to='/RiderLogin'><p>Login</p></Link> }
+              {riderCred? <p onClick={()=>handleLogout()}>Logout</p> : <Link to={RIDER_LOGIN}><p>Login</p></Link> }
               </div>
 
             </div>

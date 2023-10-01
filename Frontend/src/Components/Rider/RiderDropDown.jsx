@@ -5,6 +5,7 @@ import { ChevronDownIcon } from '@heroicons/react/20/solid'
 import { RiderLogout } from '../../Redux/slice/riderSlice' 
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate, Link } from 'react-router-dom'
+import { RIDER_LOGIN, RIDER_PROFILE } from '../../RoutePaths/RoutePaths'
 
 
 function classNames(...classes) {
@@ -22,7 +23,7 @@ export default function DropdownButton(props) {
             dispatch(RiderLogout())
             
             setTimeout(()=>{
-                navigate('/RiderLogin')
+                navigate(RIDER_LOGIN)
             },3000)
         } catch (error) {
             console.log(error);
@@ -50,7 +51,7 @@ export default function DropdownButton(props) {
           <div className="py-1">
           <Menu.Item>
               {({ active }) => (
-                <Link to='/RiderProfile'>
+                <Link to={RIDER_PROFILE}>
                   <p
                     
                     className={classNames(
