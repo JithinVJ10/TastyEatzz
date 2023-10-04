@@ -1,13 +1,10 @@
-import React,{useState,useEffect} from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import React, { useState } from 'react'
+import { useDispatch } from 'react-redux'
 import { Link, useNavigate } from 'react-router-dom'
-import {toast} from 'react-toastify'
+import { HOTEL_SIGNUP } from '../../RoutePaths/RoutePaths'
 import { axiosInstance } from '../../api/axiosInstance'
-import { setRiderInfo } from '../../Redux/slice/riderSlice'
-import { RIDER_DASHBOARD, RIDER_PROFILE_SETUP, RIDER_SIGNUP } from '../../RoutePaths/RoutePaths'
 
-
-const RiderLogin = () => {
+const HotelLogin = () => {
     const [email,setemail] = useState('')
     const [password,setpassword] = useState('')
     const [err,setErr] = useState('')
@@ -16,41 +13,7 @@ const RiderLogin = () => {
     const navigate = useNavigate()
     const dispatch = useDispatch()
 
-    const {riderCred} = useSelector((state)=> state.rider)
-
-    useEffect(()=>{
-      if (riderCred) {
-        navigate(RIDER_DASHBOARD)
-      }
-    },[navigate,riderCred])
-
-    const submitHandler = (e)=>{
-        e.preventDefault()
-        if (!isValid) {
-            setErr('Invalid Email')
-            return
-        }
-        axiosInstance.post('/rider/riderLogin',{email,password}).then((res)=>{
-            if (res.data.rider) {
-                dispatch(setRiderInfo(res.data.rider))
-                console.log(res.data.riderData);
-                localStorage.setItem('riderToken',JSON.stringify(res.data.token))
-                navigate(RIDER_PROFILE_SETUP)
-                
-                toast.success("Login succesfully", { autoClose: 2000 });
-                
-            }
-        }).catch((err)=>{
-            console.log(err);
-            setErr(err?.response?.data?.message ||"Invaild Email or Password")
-            setTimeout(() => {
-                setErr('')
-            }, 3000);
-            toast.error(err?.response?.data?.message || 'Error')
-        })
-    }
-
-    const handlerEmail = (e)=>{
+    const handlerEmail =(e)=>{
         setemail(e.target.value)
         let regx = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/
         if(regx.test(email) === false){
@@ -61,12 +24,40 @@ const RiderLogin = () => {
         }
     }
 
+    const submitHandler = async (e)=>{
+        e.preventDefault()
+        if (!isValid) {
+            setErr('Invalid Email')
+            return
+        }
+        try {
+            const res = axiosInstance.post('/rider/riderLogin',{email,password})
+                if (res.data.rider) {
+                    dispatch(setRiderInfo(res.data.hotelData))
+                    console.log(res.data.riderData);
+                    localStorage.setItem('hotelToken',JSON.stringify(res.data.token))
+                    navigate(RIDER_PROFILE_SETUP)
+                    
+                    toast.success("Login succesfully", { autoClose: 2000 });
+                    
+                }
+            
+        } catch (error) {
+            console.log(error);
+                setErr(error?.response?.data?.message ||"Invaild Email or Password")
+                setTimeout(() => {
+                    setErr('')
+                }, 3000);
+        }
+    }
+
+
   return (
     <>
-      <div className="relative flex flex-col justify-center mt-20 overflow-hidden">
+            <div className="relative flex flex-col justify-center mt-20 overflow-hidden">
             <div className="w-full p-6 m-auto bg-white rounded-md shadow-md lg:max-w-xl">
                 <h1 className="text-3xl font-semibold text-center text-slate-950">
-                   Rider Login
+                   HOTEL LOGIN
                 </h1>
                 <form className="mt-6" onSubmit={submitHandler}>
                     <div className="mb-2">
@@ -110,7 +101,7 @@ const RiderLogin = () => {
                         <p className="mt-8 text-xs font-light text-center text-gray-700">
                     {" "}
                     Don't have an account?{" "}
-                    <Link to={RIDER_SIGNUP}>
+                    <Link to={HOTEL_SIGNUP}>
                     <span className="font-medium text-purple-600 hover:underline">
                         Sign up
                     </span>
@@ -126,4 +117,4 @@ const RiderLogin = () => {
   )
 }
 
-export default RiderLogin
+export default HotelLogin

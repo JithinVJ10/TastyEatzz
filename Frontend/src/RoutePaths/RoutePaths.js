@@ -32,3 +32,8 @@ export const RIDER_PROFILE = '/RiderProfile';
 export const EDIT_RIDER_PROFILE = '/EditRiderProfile';
 export const VEHICLE_PROFILE = '/VehicleProfile';
 export const BANK_DETAILS_PROFILE = '/BankDetailsProfile';
+
+// Hotel
+
+export const HOTEL_LOGIN = '/HotelLogin'
+export const HOTEL_SIGNUP = '/HotelSignUP'
