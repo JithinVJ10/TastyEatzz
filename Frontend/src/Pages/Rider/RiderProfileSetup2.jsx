@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import { setRiderInfo } from '../../Redux/slice/riderSlice'
@@ -16,6 +16,12 @@ const RiderProfileSetup2 = () => {
    const navigate = useNavigate()
 
    const {riderCred} = useSelector((state)=> state.rider)
+
+   useEffect(()=>{
+    if (riderCred.BankDetails) {
+      navigate(RIDER_DASHBOARD)
+    }
+   })
 
    const handleLogout = ()=>{
     try {

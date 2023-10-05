@@ -6,6 +6,7 @@ import { RiderLogout } from '../../Redux/slice/riderSlice'
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate, Link } from 'react-router-dom'
 import { RIDER_LOGIN, RIDER_PROFILE } from '../../RoutePaths/RoutePaths'
+import { toast } from 'react-toastify'
 
 
 function classNames(...classes) {
@@ -25,6 +26,7 @@ export default function DropdownButton(props) {
             setTimeout(()=>{
                 navigate(RIDER_LOGIN)
             },3000)
+            toast.success("Logout", { autoClose: 2000 });
         } catch (error) {
             console.log(error);
         }

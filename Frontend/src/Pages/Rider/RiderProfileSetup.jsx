@@ -13,6 +13,12 @@ const RiderProfileSetup = () => {
 
   const {riderCred} = useSelector((state)=> state.rider)
 
+  useEffect(()=>{
+    if (riderCred.VehicleDetails) {
+      navigate(RIDER_PROFILE_SETUP2)
+    }
+  },[riderCred,navigate])
+
   const [VehicleModel, setVehicleModel] = useState()
   const [VehicleNo, setVehicleNo] = useState()
   const [RcNumber, setRcNumber] = useState()
@@ -30,15 +36,16 @@ const RiderProfileSetup = () => {
                 setTimeout(() => {
                     navigate(RIDER_PROFILE_SETUP2)
                 }, 2000);
-                
+                toast.success("Saved", { autoClose: 2000 });
             }else{
               console.log('Update failed');
               setResult('Update failed')
+              toast.error("Update failed", { autoClose: 2000 });
             }
         })
     } catch (error) {
         console.log(error);
-        setResult('Error')
+        setResult('Update failed')
     }
 }
 
@@ -58,11 +65,11 @@ const RiderProfileSetup = () => {
     }
 
     const handleNavigate = ()=>{
-      try {
-        navigate(RIDER_DASHBOARD)
-      } catch (error) {
-        console.log(error);
-      }
+      // try {
+      //   navigate(RIDER_DASHBOARD)
+      // } catch (error) {
+      //   console.log(error);
+      // }
     }
 
   return (

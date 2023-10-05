@@ -36,8 +36,11 @@ import RiderProfile from './Pages/Rider/RiderProfile'
 import EditRiderProfile from './Pages/Rider/RiderProfile/EditRiderProfile'
 import VehicleProfile from './Pages/Rider/RiderProfile/VehicleProfile'
 import BankDetailsProfile from './Pages/Rider/RiderProfile/BankDetailsProfile'
+
+// Hotel
 import HotelLogin from './Pages/Hotel/HotelLogin'
 import HotelSignUp from './Pages/Hotel/HotelSignUp'
+import HotelDashboard from './Pages/Hotel/HotelDashboard'
 
 
 function App() {
@@ -88,6 +91,7 @@ function App() {
 
       <Route path={RoutePaths.HOTEL_LOGIN} element={<HotelLogin/>}/>
       <Route path={RoutePaths.HOTEL_SIGNUP} element={<HotelSignUp/>} />
+      <Route path={RoutePaths.HOTEL_DASHBOARD} element={<HotelDashboard/>} />
 
 
 

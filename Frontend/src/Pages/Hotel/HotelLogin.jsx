@@ -1,8 +1,11 @@
 import React, { useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { Link, useNavigate } from 'react-router-dom'
-import { HOTEL_SIGNUP } from '../../RoutePaths/RoutePaths'
+import { HOTEL_DASHBOARD, HOTEL_SIGNUP } from '../../RoutePaths/RoutePaths'
 import { axiosInstance } from '../../api/axiosInstance'
+import { setHotelInfo } from '../../Redux/slice/hotelSlice'
+import { toast, ToastContainer } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css';
 
 const HotelLogin = () => {
     const [email,setemail] = useState('')
@@ -28,23 +31,27 @@ const HotelLogin = () => {
         e.preventDefault()
         if (!isValid) {
             setErr('Invalid Email')
+            toast.error("Invalid Email", { autoClose: 2000 });
             return
         }
         try {
-            const res = axiosInstance.post('/rider/riderLogin',{email,password})
-                if (res.data.rider) {
-                    dispatch(setRiderInfo(res.data.hotelData))
-                    console.log(res.data.riderData);
+            const res = await axiosInstance.post('/hotel/HotelLogin',{email,password})
+                if (res.data.hotel) {
+                    console.log('sssssssssssss');
+                    dispatch(setHotelInfo(res.data.hotel))
+                    
                     localStorage.setItem('hotelToken',JSON.stringify(res.data.token))
-                    navigate(RIDER_PROFILE_SETUP)
+                    navigate(HOTEL_DASHBOARD)
+                    toast.success("Logged In", { autoClose: 2000 });
                     
-                    toast.success("Login succesfully", { autoClose: 2000 });
-                    
+                }else{
+                    console.log('eeeeeeeeeeeeeee');
                 }
             
         } catch (error) {
             console.log(error);
                 setErr(error?.response?.data?.message ||"Invaild Email or Password")
+                toast.error(error?.response?.data?.message ,{ autoClose: 2000 });
                 setTimeout(() => {
                     setErr('')
                 }, 3000);
@@ -55,6 +62,7 @@ const HotelLogin = () => {
   return (
     <>
             <div className="relative flex flex-col justify-center mt-20 overflow-hidden">
+                <ToastContainer />
             <div className="w-full p-6 m-auto bg-white rounded-md shadow-md lg:max-w-xl">
                 <h1 className="text-3xl font-semibold text-center text-slate-950">
                    HOTEL LOGIN

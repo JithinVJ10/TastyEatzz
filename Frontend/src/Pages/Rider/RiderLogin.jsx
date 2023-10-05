@@ -1,7 +1,8 @@
 import React,{useState,useEffect} from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link, useNavigate } from 'react-router-dom'
-import {toast} from 'react-toastify'
+import {toast, ToastContainer} from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css';
 import { axiosInstance } from '../../api/axiosInstance'
 import { setRiderInfo } from '../../Redux/slice/riderSlice'
 import { RIDER_DASHBOARD, RIDER_PROFILE_SETUP, RIDER_SIGNUP } from '../../RoutePaths/RoutePaths'
@@ -18,26 +19,31 @@ const RiderLogin = () => {
 
     const {riderCred} = useSelector((state)=> state.rider)
 
-    useEffect(()=>{
-      if (riderCred) {
-        navigate(RIDER_DASHBOARD)
-      }
-    },[navigate,riderCred])
+    // useEffect(()=>{
+    //   if (riderCred) {
+    //     navigate(RIDER_DASHBOARD)
+    //   }
+    // },[navigate,riderCred])
 
-    const submitHandler = (e)=>{
+    const submitHandler =  (e)=>{
         e.preventDefault()
         if (!isValid) {
             setErr('Invalid Email')
+            toast.error('Invalid Email')
             return
         }
         axiosInstance.post('/rider/riderLogin',{email,password}).then((res)=>{
             if (res.data.rider) {
                 dispatch(setRiderInfo(res.data.rider))
-                console.log(res.data.riderData);
+                console.log(res.data.rider);
                 localStorage.setItem('riderToken',JSON.stringify(res.data.token))
-                navigate(RIDER_PROFILE_SETUP)
+                try {
+                    toast.success('Succefully logged In')
+                } catch (error) {
+                    console.log(error);
+                }
                 
-                toast.success("Login succesfully", { autoClose: 2000 });
+                navigate(RIDER_PROFILE_SETUP)
                 
             }
         }).catch((err)=>{
@@ -64,6 +70,7 @@ const RiderLogin = () => {
   return (
     <>
       <div className="relative flex flex-col justify-center mt-20 overflow-hidden">
+        <ToastContainer/>
             <div className="w-full p-6 m-auto bg-white rounded-md shadow-md lg:max-w-xl">
                 <h1 className="text-3xl font-semibold text-center text-slate-950">
                    Rider Login

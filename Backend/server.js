@@ -6,6 +6,7 @@ dotenv.config()
 import userRoute from './server/routes/userRoute.js'
 import adminRoute from './server/routes/adminRoute.js'
 import riderRoute from './server/routes/riderRoue.js'
+import hotelRoute from './server/routes/hotelRoute.js'
 import connectDB from './server/config/database.js'
 import { notFound, errorHandler } from './server/middleware/errorMiddleware.js'
 
@@ -22,6 +23,7 @@ app.use(express.urlencoded({extended:true}))
 app.use('/',userRoute)
 app.use('/admin',adminRoute)
 app.use('/rider',riderRoute)
+app.use('/hotel',hotelRoute)
 
 app.use(notFound)
 app.use(errorHandler)

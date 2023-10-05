@@ -12,7 +12,7 @@ export const hotelSlice = createSlice({
     reducers:{
         setHotelInfo: (state,action)=>{
             state.hotelCred = action.payload
-            localStorage.setItem(action.payload,'hotelInfo')
+            localStorage.setItem("hotelInfo", JSON.stringify(action.payload));
         },
         hotelLogout:(state)=>{
             state.hotelCred= null
