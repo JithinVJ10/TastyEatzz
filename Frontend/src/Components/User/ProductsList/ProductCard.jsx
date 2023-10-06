@@ -1,14 +1,12 @@
 import React from 'react'
 import { SimpleCard } from '../Card/ImageCard'
 
-const ProductCard = () => {
+const ProductCard = (props) => {
   return (
     <>
-    <div className='flex'>
 
-      <SimpleCard/>
-      <SimpleCard/>
-    </div>
+      <SimpleCard title={props.title}/>
+    
     </>
   )
 }
