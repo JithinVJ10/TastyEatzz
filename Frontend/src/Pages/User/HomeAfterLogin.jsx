@@ -4,20 +4,45 @@ import { useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import { logout } from '../../Redux/slice/userSlice'
 import {toast} from 'react-toastify'
+import HeroMain from '../../Components/User/Hero/HeroMain'
+import OfferCard from '../../Components/User/Card/OfferCard'
+import CategoryRow from '../../Components/User/Card/CategoryRow'
+import ProductCard from '../../Components/User/ProductsList/ProductCard'
+import Footer from '../../Components/User/Footer/Footer'
 
 const HomeAfterLogin = () => {
   const navigate = useNavigate()
   const dispatch = useDispatch()
 
   return (
-    <>
+    <div className='min-h-screen flex flex-col'>
         <Header />
-      <h1 className='text-4xl text-center mt-10'>
-        HomePage after login
-        
-      </h1>
+        <HeroMain/>
+        <div className='mt-20'>
+          <p className='font-bold text-3xl'>Best offers for you</p>
+        </div>
+        <div className='flex justify-between mt-10'>
+          <OfferCard title={'Get up to 60%'} text={'off on your next order'} bgColor={'bg-red-400'}/>
+          <OfferCard title={'Get 15% off'} text={'off on your next order'} bgColor={'bg-lime-500'}/>
+          <OfferCard title={'Get 10% off'} text={'off on your next order'} bgColor={'bg-cyan-700'}/>
+        </div>
+        <div className='mt-20 flex'>
+          <CategoryRow category={'Pizza'} />
+          <CategoryRow category={'Bugger'}/>
+          <CategoryRow category={'Biriyani'}/>
+          <CategoryRow category={'Meals'}/>
+        </div>
+        <div>
+          <ProductCard title={'Polular Food Items'} />
+        </div>
+        <div>
+          <ProductCard title={'South Indian Food Items'}/>
+        </div>
+        <div className="">
+          <Footer />
+        </div>
       
-    </>
+    </div>
   )
 }
 
