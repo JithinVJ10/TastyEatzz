@@ -1,20 +1,33 @@
 import React from 'react'
 import Header from '../../Components/Rider/RiderHeader'
-import DataCards from '../../Components/Admin/Cards/DataCards'
+import DataCard from '../../Components/Rider/Cards/DataCard'
+import DashboardProfile from '../../Components/Rider/Cards/DashboardProfile'
+import DeliveryCancel from '../../Components/Rider/Cards/DeliveryCancel'
+import Footer from '../../Components/User/Footer/Footer'
+
 
 const RiderDashBoard = () => {
   return (
     <>
       <Header/>
-      
-      <div className='flex justify-around mt-10'>
-      <DataCards title={'50'} text={"total delivery's complete today"} bgColor={'bg-red-400'}/>
-      <DataCards title={'1000₹'} text={"total earnings Today"} bgColor={'bg-yellow-500'}/>
+      <div className='ms-5 mt-20'>
+        <DashboardProfile/>
+      </div>
+
+      <div className='flex justify-around mt-16'>
+      <DataCard title={'50'} text={"total delivery's complete today"} bgColor={'bg-red-400'}/>
+      <DataCard title={'1000₹'} text={"total earnings Today"} bgColor={'bg-yellow-500'}/>
       </div>
 
       <div className='flex justify-around mt-10'>
-      <DataCards title={'5'} text={"total Hour’s worked today"} bgColor={'bg-blue-400'}/>
-      <DataCards title={'2000₹'} text={"Wallet"} bgColor={'bg-lime-500'}/>
+      <DataCard title={'5'} text={"total Hour’s worked today"} bgColor={'bg-blue-400'}/>
+      <DataCard title={'2000₹'} text={"Wallet"} bgColor={'bg-lime-500'}/>
+      </div>
+      <div className='mt-14'>
+        <DeliveryCancel/>
+      </div>
+      <div>
+        <Footer/>
       </div>
     </>
   )
