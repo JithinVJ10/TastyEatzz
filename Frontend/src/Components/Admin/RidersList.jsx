@@ -69,21 +69,21 @@ const RidersList = () => {
             </tr>
           </thead>
           <tbody className="bg-white divide-y divide-gray-200">
-            {riders.map((rider) => {
+            {riders?.map((rider) => {
               return (
                 <>
                   <tr>
                     <td className="px-6 py-4 whitespace-no-wrap">
-                      {rider.username}
+                      {rider?.username}
                     </td>
                     <td className="px-6 py-4 whitespace-no-wrap">
-                      {rider.email}
+                      {rider?.email}
                     </td>
                     <td className="px-6 py-4 whitespace-no-wrap">
-                      {rider.phone}
+                      {rider?.phone}
                     </td>
                     <td className="px-6 py-4 whitespace-no-wrap">
-                    {rider.isBlocked ? 
+                    {rider?.isBlocked ? 
                       <button onClick={()=> handleAction('unblock',rider._id)} className="bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">
                         unBlock
                       </button> :

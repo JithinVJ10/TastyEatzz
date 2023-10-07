@@ -1,6 +1,7 @@
 import React from 'react'
 import AdminSideBar from '../../Components/Admin/adminSideBar'
 import Header from '../../Components/Admin/header'
+import FoodList from '../../Components/Admin/FoodList'
 
 const AdminFood = () => {
   return (
@@ -14,7 +15,7 @@ const AdminFood = () => {
         <Header/>
       </div>
       <div className='pl-8 mt-2'>
-        <h1>Food items</h1>
+        <FoodList/>
       </div>
 
       
