@@ -4,6 +4,7 @@ import DataCard from '../../Components/Rider/Cards/DataCard'
 import DashboardProfile from '../../Components/Rider/Cards/DashboardProfile'
 import DeliveryCancel from '../../Components/Rider/Cards/DeliveryCancel'
 import Footer from '../../Components/User/Footer/Footer'
+import CurrentOrder from '../../Components/Rider/Cards/CurrentOrder'
 
 
 const RiderDashBoard = () => {
@@ -25,6 +26,9 @@ const RiderDashBoard = () => {
       </div>
       <div className='mt-14'>
         <DeliveryCancel/>
+      </div>
+      <div className='flex justify-center'>
+        <CurrentOrder/>
       </div>
       <div>
         <Footer/>

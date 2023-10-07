@@ -1,9 +1,10 @@
 import React from 'react'
+import {FaFacebook, FaInstagram, FaTwitter} from 'react-icons/fa'
 
 const Footer = () => {
   return (
     <div className='w-full h-56 flex justify-between items-center  bg-cyan-400 p-10 mt-10'>
-        
+       
       <p className='ps-10 text-2xl font-bold'>
        TastyEatzz
       </p>
@@ -14,9 +15,9 @@ const Footer = () => {
         <p className='pe-4 font-bold'>T&C</p>
       </div>
       <div className='flex pe-10'>
-        <p className='pe-1 font-bold'>F</p>
-        <p className='pe-1 font-bold'>I</p>
-        <p className='pe-1 font-bold'>W</p>
+        <FaFacebook className='me-2'/>
+        <FaInstagram className='me-2'/>
+        <FaTwitter/>
       </div>
     </div>
   )

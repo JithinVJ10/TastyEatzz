@@ -48,10 +48,16 @@ export default function Header(props) {
           <Link to={RIDER_DASHBOARD}>
           <div className="-m-1.5 p-1.5 ">
             
-            <p className="font-bold text-xl">TastyEatzz</p>
-            <p className='font-thin'>Rider</p>
+            <p className="font-bold text-3xl">TastyEatzz</p>
+            <p className='font-thin ml-2'>Rider</p>
           </div>
           </Link>
+        </div>
+        <div className='flex'>
+          <p className='me-4 font-bold'>My Delivery</p>
+          <p className='me-4 font-bold'>Wallet</p>
+          <p className='me-4 font-bold'>Profile</p>
+          
         </div>
         <div className="flex lg:hidden">
           <button
