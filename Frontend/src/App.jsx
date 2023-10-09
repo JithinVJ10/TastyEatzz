@@ -41,6 +41,7 @@ import BankDetailsProfile from './Pages/Rider/RiderProfile/BankDetailsProfile'
 import HotelLogin from './Pages/Hotel/HotelLogin'
 import HotelSignUp from './Pages/Hotel/HotelSignUp'
 import HotelDashboard from './Pages/Hotel/HotelDashboard'
+import HotelFood from './Pages/Hotel/HotelFood'
 
 
 function App() {
@@ -92,6 +93,7 @@ function App() {
       <Route path={RoutePaths.HOTEL_LOGIN} element={<HotelLogin/>}/>
       <Route path={RoutePaths.HOTEL_SIGNUP} element={<HotelSignUp/>} />
       <Route path={RoutePaths.HOTEL_DASHBOARD} element={<HotelDashboard/>} />
+      <Route path={RoutePaths.HOTEL_FOOD} element={<HotelFood/>} />
 
 
 

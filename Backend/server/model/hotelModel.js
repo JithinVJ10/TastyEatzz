@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 import bcrypt from 'bcrypt'
 
-const HotelSchema = mongoose.Schema(
+const HotelSchema = new mongoose.Schema(
     {
       hotelName: {
         type: String,

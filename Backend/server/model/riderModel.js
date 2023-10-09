@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 import bcrypt from 'bcrypt'
 
-const RiderSchema = mongoose.Schema(
+const RiderSchema = new mongoose.Schema(
     {
       username: {
         type: String,

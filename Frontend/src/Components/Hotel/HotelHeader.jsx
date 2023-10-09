@@ -7,10 +7,10 @@ import {
 import {  PhoneIcon, PlayCircleIcon } from '@heroicons/react/20/solid'
 
 import { Link ,useNavigate } from 'react-router-dom'
-import DropdownButton from './DropDown'
+
 import { useDispatch, useSelector } from 'react-redux'
-import { AdminLogout } from '../../Redux/slice/adminSlice'
-import { ADMIN_DASHBOARD, ADMIN_LOGIN } from '../../RoutePaths/RoutePaths'
+import { ADMIN_DASHBOARD, HOTEL_DASHBOARD, HOTEL_LOGIN } from '../../RoutePaths/RoutePaths'
+import { hotelLogout } from '../../Redux/slice/hotelSlice' 
 
 
 const callsToAction = [
@@ -22,20 +22,20 @@ function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
 }
 
-export default function Header(props) {
+export default function HotelHeader(props) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
 
-  const {adminCred} = useSelector((state)=> state.admin)
+  const {hotelCred} = useSelector((state)=> state.hotel)
 
   const navigate = useNavigate()
   const dispatch = useDispatch()
 
   const handleLogout =()=>{
     try {
-        dispatch(AdminLogout())
-        setTimeout(()=>{
-            navigate(ADMIN_LOGIN)
-        },3000)
+        dispatch(hotelLogout())
+        setTimeout(() => {
+            navigate(HOTEL_LOGIN)
+        }, 3000);
     } catch (error) {
         console.log(error);
     }
@@ -45,9 +45,9 @@ export default function Header(props) {
     <header className="bg-white">
       <nav className="mx-auto flex max-w-7xl items-center justify-between p-6 lg:px-8" aria-label="Global">
         <div className="flex lg:flex-1">
-          <Link to={ADMIN_DASHBOARD}>
+          <Link to={HOTEL_DASHBOARD}>
           <div className="-m-1.5 p-1.5 flex">
-          <h1 className='text-5xl font-extrabold'>Admin Panel</h1>
+          <h1 className='text-5xl font-extrabold'>HOTEL</h1>
           </div>
           </Link>
         </div>
@@ -63,8 +63,8 @@ export default function Header(props) {
         </div>
 
         <div className="sm:block hidden " >
-        <div><p className='text-center'>Admin</p></div>
-        <DropdownButton/>
+        <div><p className='text-center'>Hotel</p></div>
+        
         </div>
       </nav>
       <Dialog as="div" className="lg:hidden" open={mobileMenuOpen} onClose={setMobileMenuOpen}>
@@ -89,7 +89,7 @@ export default function Header(props) {
           <div className="mt-6 flow-root">
             <div className="-my-6 divide-y divide-gray-500/10 sm:hidden">
 
-            {adminCred? <p onClick={()=>handleLogout()}>Logout</p> : <Link to={ADMIN_LOGIN}><p>Login</p></Link> }
+            {hotelCred? <p onClick={()=>handleLogout()}>Logout</p> : <Link to={HOTEL_LOGIN}><p>Login</p></Link> }
 
             </div>
           </div>

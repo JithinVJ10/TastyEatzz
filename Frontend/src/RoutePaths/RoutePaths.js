@@ -38,3 +38,4 @@ export const BANK_DETAILS_PROFILE = '/BankDetailsProfile';
 export const HOTEL_LOGIN = '/HotelLogin'
 export const HOTEL_SIGNUP = '/HotelSignUP'
 export const HOTEL_DASHBOARD = '/HotelDashboard'
+export const HOTEL_FOOD = '/HotelFood'

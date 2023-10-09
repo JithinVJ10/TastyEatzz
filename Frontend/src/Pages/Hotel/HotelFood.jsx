@@ -2,7 +2,7 @@ import React from 'react'
 import HotelSideNav from '../../Components/Hotel/HotelSideNav'
 import HotelHeader from '../../Components/Hotel/HotelHeader'
 
-const HotelDashboard = () => {
+const HotelFood = () => {
   return (
     <div className='flex  h-screen'>
       
@@ -14,7 +14,7 @@ const HotelDashboard = () => {
         <HotelHeader/>
       </div>
       <div className='pl-8 mt-2'>
-        <h1>Dashboard</h1>
+        
       </div>
 
       
@@ -24,4 +24,4 @@ const HotelDashboard = () => {
   )
 }
 
-export default HotelDashboard
+export default HotelFood
