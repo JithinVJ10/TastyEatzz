@@ -2,10 +2,10 @@ import { Fragment } from 'react'
 import { Menu, Transition } from '@headlessui/react'
 import { ChevronDownIcon } from '@heroicons/react/20/solid'
 
-import { logout } from '../../../Redux/slice/userSlice'
+import { hotelLogout } from '../../Redux/slice/hotelSlice' 
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate, Link } from 'react-router-dom'
-import { USER_LOGIN, USER_PROFILE } from '../../../RoutePaths/RoutePaths'
+import { HOTEL_LOGIN } from '../../RoutePaths/RoutePaths'
 import { toast } from 'react-toastify'
 
 
@@ -17,14 +17,14 @@ export default function DropdownButton(props) {
     const navigate = useNavigate()
     const dispatch = useDispatch()
 
-    const {userCred} = useSelector(state => state.user)
+    const {hotelCred} = useSelector(state => state.hotel)
     
     const handleLogout =()=>{
         try {
-            dispatch(logout())
+            dispatch(hotelLogout())
             toast.success("Logout")
             setTimeout(()=>{
-                navigate(USER_LOGIN)
+                navigate(HOTEL_LOGIN)
             },3000)
         } catch (error) {
             console.log(error);
@@ -34,7 +34,7 @@ export default function DropdownButton(props) {
     <Menu as="div" className="relative inline-block text-left">
       <div>
         <Menu.Button className="inline-flex w-full justify-center gap-x-1.5 rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50">
-          {userCred ? userCred.username : null}
+          {hotelCred ? 'Hotel' : null}
           <ChevronDownIcon className="-mr-1 h-5 w-5 text-gray-400" aria-hidden="true" />
         </Menu.Button>
       </div>
@@ -50,23 +50,8 @@ export default function DropdownButton(props) {
       >
         <Menu.Items className="absolute right-0 z-10 mt-2 w-56 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
           <div className="py-1">
-            <Menu.Item>
-              {({ active }) => (
-                <Link to={USER_PROFILE}>
-                  <p
-                    
-                    className={classNames(
-                      active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
-                      'block px-4 py-2 text-sm'
-                    )}
-                  >
-                    Profile
-                  </p>
-                </Link>
-              )}
-            </Menu.Item>
 
-            <form >
+            <form>
               <Menu.Item>
                 {({ active }) => (
                   <button

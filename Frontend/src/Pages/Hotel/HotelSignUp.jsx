@@ -52,6 +52,9 @@ const HotelSignUp = () => {
     } catch (error) {
         console.log(error);
         setErr(error?.response?.data?.message ||'Signup Error')
+        setTimeout(()=>{
+            setErr('')
+        },2000)
         toast.error(error?.response?.data?.message ||'Signup Error')   
     }
   }

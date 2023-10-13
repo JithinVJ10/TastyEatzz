@@ -11,6 +11,7 @@ import { Link ,useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { ADMIN_DASHBOARD, HOTEL_DASHBOARD, HOTEL_LOGIN } from '../../RoutePaths/RoutePaths'
 import { hotelLogout } from '../../Redux/slice/hotelSlice' 
+import DropdownButton from './DropDown'
 
 
 const callsToAction = [
@@ -64,7 +65,7 @@ export default function HotelHeader(props) {
 
         <div className="sm:block hidden " >
         <div><p className='text-center'>Hotel</p></div>
-        
+        <DropdownButton/>
         </div>
       </nav>
       <Dialog as="div" className="lg:hidden" open={mobileMenuOpen} onClose={setMobileMenuOpen}>

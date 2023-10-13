@@ -2,7 +2,7 @@ import React from 'react'
 import { BsCardChecklist } from 'react-icons/bs'
 import { FaBiking, FaHamburger, FaHotel, FaTable, FaUser } from 'react-icons/fa'
 import { Link } from 'react-router-dom'
-import { ADMIN_DASHBOARD, ADMIN_FOOD, ADMIN_RIDER, ADMIN_USER, HOTEL_DASHBOARD, HOTEL_FOOD } from '../../RoutePaths/RoutePaths'
+import { ADMIN_FOOD, ADMIN_RIDER, HOTEL_DASHBOARD, HOTEL_FOOD } from '../../RoutePaths/RoutePaths'
 import { IoMdSettings } from 'react-icons/io'
 
 const HotelSideNav = () => {
@@ -35,20 +35,10 @@ const HotelSideNav = () => {
                             </Link>
                         </li>
                         <li className="flex space-x-4 items-center hover:text-indigo-600 cursor-pointer">
-                            <FaBiking className='text-2xl'/>
-                            <Link to={ADMIN_RIDER}>
+                            <FaUser className='text-2xl'/>
+                            <Link to={''}>
                             <a className='hidden sm:block'>Profile</a>
                             </Link>
-                        </li>
-                        <li className="flex space-x-4 items-center hover:text-indigo-600 cursor-pointer">
-                            <FaHamburger className='text-2xl'/>
-                            <Link to={ADMIN_FOOD}>
-                            <a className='hidden sm:block'>Food items</a>
-                            </Link>
-                        </li>
-                        <li className="flex space-x-4 items-center hover:text-indigo-600 cursor-pointer">
-                            <FaHotel className='text-2xl'/>
-                            <a className='hidden sm:block'>Hotel</a>
                         </li>
                         <li className="flex space-x-4 items-center hover:text-indigo-600 cursor-pointer">
                             <BsCardChecklist className='text-2xl'/>

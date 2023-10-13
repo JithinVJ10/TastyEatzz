@@ -4,7 +4,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import { axiosInstance } from '../../api/axiosInstance'
 import { useDispatch, useSelector } from 'react-redux'
 import { setUserInfo } from '../../Redux/slice/userSlice'
-import {toast} from 'react-toastify'
+import {toast, ToastContainer} from 'react-toastify'
 import { GoogleLogin } from '@react-oauth/google';
 import { LOGGED_IN_HOME, USER_SIGNUP } from '../../RoutePaths/RoutePaths'
 
@@ -25,7 +25,7 @@ const Login = () => {
         if (userCred) {
           navigate(LOGGED_IN_HOME)
         }
-    },[navigate,userCred])
+    },[])
 
     
     
@@ -79,7 +79,9 @@ const Login = () => {
                 dispatch(setUserInfo(res.data.userData))
                 console.log(res.data.userData);
                 localStorage.setItem('token',JSON.stringify(res.data.token))
-                navigate(LOGGED_IN_HOME)
+                setTimeout(()=>{
+                    navigate(LOGGED_IN_HOME)
+                },2000)
                 
                 toast.success("Login succesfully", { autoClose: 2000 });
                 
@@ -110,6 +112,7 @@ const Login = () => {
   return (
     <>
     <Header status={'Signup'}/>
+    <ToastContainer/>
     
        <div className="relative flex flex-col justify-center mt-10 overflow-hidden">
             <div className="w-full p-6 m-auto bg-white rounded-md shadow-md lg:max-w-xl">

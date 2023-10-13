@@ -1,4 +1,5 @@
 import Hotel from "../model/hotelModel.js"
+import Food from "../model/foodModel.js"
 import jwt from "jsonwebtoken"
 
 // generate jwt
@@ -67,5 +68,47 @@ const hotelLogin = async (req,res, next )=>{
     }
 }
 
+const addFoodItem = async (req,res,next)=>{
+  try {
+    const {name,category,cuisineType,description,price,imageUrl,availableFrom,availableTo} =req.body
+    console.log(name);
 
-export {hotelRegister, hotelLogin}
+    const foodItem = await Food.create({
+      name,category,cuisineType,description,price,imageUrl,availableFrom,availableTo
+    })
+
+    if (foodItem) {
+      res.status(200).json({message:'Sucess',foodItem})
+    }else{
+      res.status(400)
+      console.log('eeeeeeeee');
+      throw new Error("Internal Error")
+    }
+  } catch (error) {
+    console.log(error);
+    next(error)
+  }
+}
+
+const getFoodItem = async (req,res,next)=>{
+  try {
+    const food = await Food.find()
+
+    if (food) {
+      res.status(200).json({
+        message:"food items",
+        food
+      })
+    }else{
+      res.status(400)
+      console.log('eeeeeeeee');
+      throw new Error("Internal Error while fetch food")
+    }
+  } catch (error) {
+    console.log(error);
+    next(error)
+  }
+}
+
+
+export {hotelRegister, hotelLogin, addFoodItem,getFoodItem}

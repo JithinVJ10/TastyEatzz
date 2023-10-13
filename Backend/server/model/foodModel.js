@@ -13,6 +13,7 @@ const foodSchema = new mongoose.Schema({
     cuisineType: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'CuisineType',
+        required: true,
     },
     description: {
         type: String,
@@ -21,9 +22,14 @@ const foodSchema = new mongoose.Schema({
         type: Number,
         required: true,
     },
-    imageUrl: {
-        type: String,
+    hotelName:{
+        type:mongoose.Schema.Types.ObjectId,
+        ref:'Hotel',
+        required: true,
     },
+    imageUrl: [{
+        type: String,
+    }],
     available: {
         type: Boolean,
         default: true, // true means available, false means out of stock

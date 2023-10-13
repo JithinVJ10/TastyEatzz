@@ -42,6 +42,9 @@ import HotelLogin from './Pages/Hotel/HotelLogin'
 import HotelSignUp from './Pages/Hotel/HotelSignUp'
 import HotelDashboard from './Pages/Hotel/HotelDashboard'
 import HotelFood from './Pages/Hotel/HotelFood'
+import HotelPrivate from './Pages/Hotel/HotelPrivate'
+import AddFood from './Pages/Hotel/AddFood'
+import HotelCategory from './Pages/Hotel/HotelCategory'
 
 
 function App() {
@@ -92,8 +95,12 @@ function App() {
 
       <Route path={RoutePaths.HOTEL_LOGIN} element={<HotelLogin/>}/>
       <Route path={RoutePaths.HOTEL_SIGNUP} element={<HotelSignUp/>} />
-      <Route path={RoutePaths.HOTEL_DASHBOARD} element={<HotelDashboard/>} />
-      <Route path={RoutePaths.HOTEL_FOOD} element={<HotelFood/>} />
+      <Route element={<HotelPrivate/>}>
+        <Route path={RoutePaths.HOTEL_DASHBOARD} element={<HotelDashboard/>} />
+        <Route path={RoutePaths.HOTEL_FOOD} element={<HotelFood/>} />
+        <Route path={RoutePaths.HOTEL_ADD_FOOD} element={<AddFood/>} />
+        <Route path={RoutePaths.HOTEL_CATEGORY} element={<HotelCategory/>} />
+      </Route>
 
 
 

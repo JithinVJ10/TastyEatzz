@@ -19,11 +19,11 @@ const RiderLogin = () => {
 
     const {riderCred} = useSelector((state)=> state.rider)
 
-    // useEffect(()=>{
-    //   if (riderCred) {
-    //     navigate(RIDER_DASHBOARD)
-    //   }
-    // },[navigate,riderCred])
+    useEffect(()=>{
+      if (riderCred) {
+        navigate(RIDER_DASHBOARD)
+      }
+    },[navigate,riderCred])
 
     const submitHandler =  (e)=>{
         e.preventDefault()
