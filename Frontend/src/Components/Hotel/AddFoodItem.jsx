@@ -1,17 +1,18 @@
-import React from 'react'
-import { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 import {toast,ToastContainer} from 'react-toastify'
 import {axiosInstance} from '../../api/axiosInstance'
 import { useNavigate } from 'react-router-dom'
 import { HOTEL_FOOD } from '../../RoutePaths/RoutePaths'
 import { Cloud_name, imageUploadURL, Upload_preset } from '../../api/cloudinaryAPI'
+import { useSelector } from 'react-redux'
 
 const AddFoodItem = () => {
+  const {hotelCred} = useSelector((state)=>state.hotel)
   const [foodData, setfoodData] = useState({
     name:'',
-    category:'',
-    cuisineType:'',
+    category:null,
+    cuisineType:null,
     description:'',
     price:null,
     availableFrom:null,
@@ -36,6 +37,8 @@ const AddFoodItem = () => {
   const handleImageChange = (e)=>{
     setPhoto(e.target.files[0]);
   }
+
+  
 
 
   const handleSubmit = async (event) => {
@@ -76,6 +79,7 @@ const AddFoodItem = () => {
       imageUrl:urlImage,
       availableFrom:foodData.availableFrom,
       availableTo:foodData.availableTo,
+      hotelName: hotelCred._id,
     }).then((res)=>{
       if (res.data.foodItem) {
         console.log(res.data.fooditem,'dsdqwdqeeeeeeee');
@@ -86,12 +90,40 @@ const AddFoodItem = () => {
       }
     }).catch((error)=>{
       console.log('fdhsfdeeeeeeeeeee');
-      toast.error(error)
+      toast.error(error.response?.data?.message)
       console.log(error);
     })
 
-    console.log(foodData);
   };
+
+  const [categories,setCategories]= useState([])
+  const [cuisineOption,setCuisineOption] = useState([])
+
+  useEffect(()=>{
+    try {
+      axiosInstance.get('/hotel/getCategory').then((res)=>{
+        if (res.data.categories) {
+          setCategories(res.data.categories)
+        }else{
+          console.log('Category not found');
+        }
+      })
+    } catch (error) {
+      console.log(error);
+    }
+
+    try {
+      axiosInstance.get('/hotel/getCuisine').then((res)=>{
+        if (res.data.cuisine) {
+          setCuisineOption(res.data.cuisine)
+        }else{
+          console.log('cuisine not found');
+        }
+      })
+    } catch (error) {
+      
+    }
+  },[])
 
 
   return (
@@ -108,6 +140,7 @@ const AddFoodItem = () => {
                 name='name'
                 id='name'
                 onChange={handleInputChange}
+                required
                 />
             </div>
             <div className='p-1'>
@@ -118,11 +151,17 @@ const AddFoodItem = () => {
                 name='category'
                 id='category'
                 onChange={handleInputChange}
+                required
               >
-                <option value='option1'>Select option</option>
-                <option value='option2'>Option 2</option>
-                <option value='option3'>Option 3</option>
-                {/* Add more options as needed */}
+                <option value=''>Select option</option>
+                {categories.map((catg)=>{
+                  return (
+                    <>
+                      <option key={catg._id} value={catg._id}>{catg.name}</option>
+                    </>
+                  )
+                })}
+                
               </select>
             </div>
             <div className='p-1'>
@@ -134,18 +173,29 @@ const AddFoodItem = () => {
                 name='description'
                 id='description'
                 onChange={handleInputChange}
+                required
                 />
             </div>
             <div className='p-1'>
                 <label htmlFor='CuisineType' className=''>Cuisine Type</label>
-                <input 
-                type="text"
+                <select
                 className='block w-full px-3 py-1 mt-1 text-purple-700 bg-white border rounded-md focus:border-purple-400 focus:ring-purple-300 focus:outline-none focus:ring focus:ring-opacity-40'
                 value={foodData.cuisineType}
                 name='cuisineType'
                 id='cuisineType'
                 onChange={handleInputChange}
-                />
+                required
+              >
+                <option value=''>Select option</option>
+                {cuisineOption.map((cuis)=>{
+                  return (
+                    <>
+                      <option key={cuis._id} value={cuis._id}>{cuis.name}</option>
+                    </>
+                  )
+                })}
+                
+              </select>
             </div>
             <div className='p-1'>
                 <label htmlFor='price' className=''>Price</label>
@@ -156,6 +206,7 @@ const AddFoodItem = () => {
                 name='price'
                 id='price'
                 onChange={handleInputChange}
+                required
                 />
             </div>
             <div className='p-1'>
@@ -167,6 +218,7 @@ const AddFoodItem = () => {
                 name='photo'
                 id='photo'
                 onChange={handleImageChange}
+                required
                 />
             </div>
             <div className='flex'>
@@ -174,26 +226,29 @@ const AddFoodItem = () => {
               <div className='p-1'>
                   <label htmlFor='availableFrom' className=''>Available From</label>
                   <input 
-                  type="date"
+                  type="time"
                   className='block w-full px-3 py-1 mt-1 text-purple-700 bg-white border rounded-md focus:border-purple-400 focus:ring-purple-300 focus:outline-none focus:ring focus:ring-opacity-40'
                   value={foodData.availableFrom}
                   name='availableFrom'
                   id='availableFrom'
                   onChange={handleInputChange}
+                  required
                   />
               </div>
               <div className='p-1'>
                   <label htmlFor='availableTo' className=''>Available To</label>
                   <input 
-                  type="date"
+                  type="time"
                   className='block w-full px-3 py-1 mt-1 text-purple-700 bg-white border rounded-md focus:border-purple-400 focus:ring-purple-300 focus:outline-none focus:ring focus:ring-opacity-40'
                   value={foodData.availableTo}
                   name='availableTo'
                   id='availableTo'
                   onChange={handleInputChange}
+                  required
                   />
               </div>
             </div>
+            {foodData.category}, {foodData.cuisineType}
             
             <div className='mt-5'>
                 <button className='bg-blue-500 text-white px-4 py-2 border border-gray-300 rounded-md hover:bg-blue-600 focus:outline-none text-base font-semibold' type="submit">

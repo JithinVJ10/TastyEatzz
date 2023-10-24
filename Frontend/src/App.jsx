@@ -5,6 +5,7 @@ import * as RoutePaths from './RoutePaths/RoutePaths'
 // User
 import Home from './Pages/User/Home'
 import Login from './Pages/User/Login'
+import UserOTPLogin from './Pages/User/OTPLogin/UserOTPLogin'
 import SignUp from './Pages/User/Signup'
 import HomeAfterLogin from './Pages/User/HomeAfterLogin'
 import ErrorPage from './Pages/User/ErrorPage'
@@ -45,6 +46,10 @@ import HotelFood from './Pages/Hotel/HotelFood'
 import HotelPrivate from './Pages/Hotel/HotelPrivate'
 import AddFood from './Pages/Hotel/AddFood'
 import HotelCategory from './Pages/Hotel/HotelCategory'
+import AddCategory from './Pages/Hotel/AddCategory'
+import HotelCusine from './Pages/Hotel/HotelCusine'
+import AddCusine from './Pages/Hotel/AddCusine'
+import UserEnterOTP from './Pages/User/OTPLogin/UserEnterOTP'
 
 
 function App() {
@@ -60,6 +65,8 @@ function App() {
       <Route path={RoutePaths.HOME} element={<Home />} />
       <Route path={RoutePaths.USER_LOGIN} element={<Login />} />
       <Route path={RoutePaths.USER_SIGNUP} element={<SignUp />} />
+      <Route path={RoutePaths.USER_OTP_LOGIN} element={<UserOTPLogin />} />
+      <Route path={RoutePaths.USER_ENTER_OTP} element={<UserEnterOTP />} />
       <Route element={<Private />}>
         <Route path={RoutePaths.LOGGED_IN_HOME} element={<HomeAfterLogin />} />
         <Route path={RoutePaths.USER_PROFILE} element={<UserProfile />} />
@@ -100,6 +107,10 @@ function App() {
         <Route path={RoutePaths.HOTEL_FOOD} element={<HotelFood/>} />
         <Route path={RoutePaths.HOTEL_ADD_FOOD} element={<AddFood/>} />
         <Route path={RoutePaths.HOTEL_CATEGORY} element={<HotelCategory/>} />
+        <Route path={RoutePaths.HOTEL_ADD_CATEGORY} element={<AddCategory/>} />
+        <Route path={RoutePaths.HOTEL_CUSINE} element={<HotelCusine/>} />
+        <Route path={RoutePaths.HOTEL_ADD_CUSINE} element={<AddCusine/>} />
+
       </Route>
 
 

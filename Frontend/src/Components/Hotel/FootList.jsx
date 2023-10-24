@@ -10,6 +10,7 @@ const FoodList = () => {
     axiosInstance.get('/hotel/getFoodItem').then((res)=>{
       if (res.data.food) {
         setFoods(res.data.food)
+        console.log(res.data.food)
       }
     }).catch((error)=>{
       console.log(error);
@@ -22,12 +23,12 @@ const FoodList = () => {
         <div className="">
         <Link to={HOTEL_CATEGORY}>
           <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mr-3">
-            Add Category
+            Category
           </button>
           </Link>
           <Link to={HOTEL_CUSINE}>
           <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mr-3">
-            Add Cusine
+            Cusine
           </button>
           </Link>
           <Link to={HOTEL_ADD_FOOD}>
@@ -49,14 +50,15 @@ const FoodList = () => {
               Catagory
               </th>
               <th className="px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
+              Cuisine
+              </th>
+              <th className="px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
               Price
               </th>
               <th className="px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
               Image
               </th>
-              <th className="px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
-              Available time
-              </th>
+              
               <th className="px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
               Change
               </th>
@@ -75,7 +77,10 @@ const FoodList = () => {
                       {food?.name}
                     </td>
                     <td className="px-6 py-4 whitespace-no-wrap">
-                      {food?.category}
+                      {food?.category?.name}
+                    </td>
+                    <td className="px-6 py-4 whitespace-no-wrap">
+                      {food?.cuisineType?.name}
                     </td>
                     <td className="px-6 py-4 whitespace-no-wrap">
                       {food?.price}
@@ -84,7 +89,14 @@ const FoodList = () => {
                       <img src={food.imageUrl} className="w-16" alt="" />
                     </td>
                     <td className="px-6 py-4 whitespace-no-wrap">
-
+                    <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mr-3">
+                      Edit
+                    </button>
+                    </td>
+                    <td className="px-6 py-4 whitespace-no-wrap">
+                    <button className="bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-4 rounded mr-3">
+                      Remove
+                    </button>
                     </td>
                   </tr>
                 </>

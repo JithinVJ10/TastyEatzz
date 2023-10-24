@@ -33,11 +33,7 @@ const HotelSchema = new mongoose.Schema(
       GSTNumber:{
         type: Number,
       },
-      BankDetails:{
-        Acc_HolderName: String,
-        Acc_Number : String,
-        IFSC_Code : String,
-      },
+
       Founded:{
         type:Date
       }

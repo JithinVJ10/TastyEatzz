@@ -1,8 +1,8 @@
 import React from 'react'
 import { BsCardChecklist } from 'react-icons/bs'
-import { FaBiking, FaHamburger, FaHotel, FaTable, FaUser } from 'react-icons/fa'
+import { FaHamburger, FaTable, FaUser } from 'react-icons/fa'
 import { Link } from 'react-router-dom'
-import { ADMIN_FOOD, ADMIN_RIDER, HOTEL_DASHBOARD, HOTEL_FOOD } from '../../RoutePaths/RoutePaths'
+import { HOTEL_DASHBOARD, HOTEL_FOOD } from '../../RoutePaths/RoutePaths'
 import { IoMdSettings } from 'react-icons/io'
 
 const HotelSideNav = () => {
@@ -10,13 +10,13 @@ const HotelSideNav = () => {
   return (
     <div className='flex'>
      
-        <nav className=" fixed top-0 left-0 bottom-0 rounded-md w-72 sm:w-30! flex-col justify-between ml-0 pl-4 bg-white">
-            <div className=" bg-white h-full">
+        <nav className=" fixed top-0 left-0 bottom-0 rounded-md w-72 sm:w-30! flex-col justify-between ml-0 pl-4 bg-purple-700 ">
+            <div className=" bg-purple-700 h-full">
                 <div className="flex py-10 shadow-sm pr-4">
 
                     <div className="">
 
-                        <h1 className={'sm' ? 'ml-0 pl-0 text-lg text-indigo-600' :'text-4xl font-bold text-indigo-600'}>TastyEatzz</h1>
+                        <h1 className={'text-4xl font-bold text-white'}>TastyEatzz</h1>
                             <span className={'sm' ? 'relative top-0 right-0 text-xs text-gray-800' :'text-lg block text-gray-800'}>Hotel</span>
                     </div>
                 </div>

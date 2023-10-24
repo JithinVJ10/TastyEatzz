@@ -1,25 +1,25 @@
 import React, { useEffect, useState } from 'react'
 import HotelSideNav from '../../Components/Hotel/HotelSideNav'
 import HotelHeader from '../../Components/Hotel/HotelHeader'
-import { HOTEL_ADD_CATEGORY } from '../../RoutePaths/RoutePaths'
 import { Link } from 'react-router-dom'
+import { HOTEL_ADD_CUSINE } from '../../RoutePaths/RoutePaths'
 import { axiosInstance } from '../../api/axiosInstance'
 
-const HotelCategory = () => {
-    const [categories, setCategories] = useState()
+const HotelCusine = () => {
+    const [cuisine, setCuisine] = useState()
     useEffect(()=>{
       try {
-        axiosInstance.get('/hotel/getCategory').then((res)=>{
-          if (res.data.categories) {
-            setCategories(res.data.categories)
+        axiosInstance.get('/hotel/getCuisine').then((res)=>{
+          if (res.data.cuisine) {
+            setCuisine(res.data.cuisine)
           }else{
-            console.log('Category not found');
+            console.log('Cuisine not found');
           }
         })
       } catch (error) {
         console.log(error);
       }
-    },[categories])
+    },[])
   return (
     <div className='flex  h-screen'>
       
@@ -36,9 +36,9 @@ const HotelCategory = () => {
         <p className="text-4xl mb-8 font-extrabold text-yellow-950">Food Category</p>
         <div className="">
         
-          <Link to={HOTEL_ADD_CATEGORY}>
+          <Link to={HOTEL_ADD_CUSINE}>
           <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mr-3">
-            Add Category
+            Add Cusine
           </button>
           </Link>
         </div>
@@ -52,7 +52,7 @@ const HotelCategory = () => {
                 SL.NO
               </th>
               <th className="px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
-                Catagory
+                Cusine
               </th>
               <th className="px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
                 Edit
@@ -64,7 +64,7 @@ const HotelCategory = () => {
             </tr>
           </thead>
           <tbody className="bg-white divide-y divide-gray-200">
-            {categories?.map((category,index) => {
+            {cuisine?.map((cus,index) => {
               return (
                 <>
                   <tr>
@@ -72,7 +72,7 @@ const HotelCategory = () => {
                       {index+1}
                     </td>
                     <td className="px-6 py-4 whitespace-no-wrap">
-                      {category?.name}
+                      {cus?.name}
                     </td>
                     <td className="px-6 py-4 whitespace-no-wrap">
                     <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mr-3">
@@ -102,4 +102,4 @@ const HotelCategory = () => {
   )
 }
 
-export default HotelCategory
+export default HotelCusine

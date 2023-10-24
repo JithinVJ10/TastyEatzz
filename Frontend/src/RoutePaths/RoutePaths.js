@@ -3,6 +3,8 @@
 export const HOME = '/';
 export const USER_LOGIN = '/userLogin';
 export const USER_SIGNUP = '/userSignup';
+export const USER_OTP_LOGIN = '/UserOTPLogin'
+export const USER_ENTER_OTP = '/UserEnterOTP'
 export const LOGGED_IN_HOME = '/LoggedInHome';
 export const USER_PROFILE = '/UserProfile';
 export const USER_ADDRESS = '/UserAddress';
