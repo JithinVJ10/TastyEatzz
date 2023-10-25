@@ -21,6 +21,7 @@ export const ADMIN_DASHBOARD = '/AdminDashboard';
 export const ADMIN_USER = '/adminUser';
 export const ADMIN_RIDER = '/adminRider';
 export const ADMIN_FOOD = '/adminFood';
+export const ADMIN_HOTEL = '/adminHotel'
 
 
 // rider

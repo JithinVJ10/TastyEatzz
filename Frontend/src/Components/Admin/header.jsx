@@ -47,7 +47,7 @@ export default function Header(props) {
         <div className="flex lg:flex-1">
           <Link to={ADMIN_DASHBOARD}>
           <div className="-m-1.5 p-1.5 flex">
-          <h1 className='text-5xl font-extrabold'>Admin Panel</h1>
+          <h1 className='text-5xl font-extrabold font-mono'>Admin Panel</h1>
           </div>
           </Link>
         </div>

@@ -50,6 +50,7 @@ import AddCategory from './Pages/Hotel/AddCategory'
 import HotelCusine from './Pages/Hotel/HotelCusine'
 import AddCusine from './Pages/Hotel/AddCusine'
 import UserEnterOTP from './Pages/User/OTPLogin/UserEnterOTP'
+import AdminHotel from './Pages/Admin/AdminHotel'
 
 
 function App() {
@@ -83,6 +84,7 @@ function App() {
         <Route path={RoutePaths.ADMIN_USER} element={<AdminUser />} />
         <Route path={RoutePaths.ADMIN_RIDER} element={<AdminRider />} />
         <Route path={RoutePaths.ADMIN_FOOD} element={<AdminFood />} />
+        <Route path={RoutePaths.ADMIN_HOTEL} element={<AdminHotel />} />
       </Route>
 
       {/* Rider */}

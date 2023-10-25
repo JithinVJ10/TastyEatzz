@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux'
 import { AdminLogout } from '../../Redux/slice/adminSlice' 
 import {toast} from 'react-toastify'
 import { Link, useNavigate } from 'react-router-dom'
-import { ADMIN_DASHBOARD, ADMIN_FOOD, ADMIN_LOGIN, ADMIN_RIDER, ADMIN_USER } from '../../RoutePaths/RoutePaths'
+import { ADMIN_DASHBOARD, ADMIN_FOOD, ADMIN_HOTEL, ADMIN_LOGIN, ADMIN_RIDER, ADMIN_USER } from '../../RoutePaths/RoutePaths'
 import {FaBiking, FaFirstOrder, FaHamburger, FaHotel, FaHubspot, FaTable, FaUser} from 'react-icons/fa'
 import { BsCardChecklist } from 'react-icons/bs'
 import {IoMdSettings} from 'react-icons/io'
@@ -27,13 +27,13 @@ const AdminSideBar = () => {
   return (
     <div className='flex'>
      
-        <nav className=" fixed top-0 left-0 bottom-0 rounded-md w-72 sm:w-30! flex-col justify-between ml-0 pl-4 bg-white">
-            <div className=" bg-white h-full">
+        <nav className=" fixed top-0 left-0 bottom-0 rounded-md w-72 sm:w-30! flex-col justify-between ml-0 pl-4 bg-cyan-50">
+            <div className=" bg-cyan-50 h-full">
                 <div className="flex py-10 shadow-sm pr-4">
 
                     <div className="">
 
-                        <h1 className={'sm' ? 'ml-0 pl-0 text-xs text-indigo-600' :'text-2xl font-bold text-indigo-600'}>TastyEatzz</h1>
+                        <h1 className={'text-2xl font-bold text-indigo-600'}>TastyEatzz</h1>
                             <span className={'sm' ? 'relative top-0 right-0 text-xs text-gray-800' :'text-xs block text-gray-800'}>DASHBOARD</span>
                     </div>
                 </div>
@@ -65,7 +65,9 @@ const AdminSideBar = () => {
                         </li>
                         <li className="flex space-x-4 items-center hover:text-indigo-600 cursor-pointer">
                             <FaHotel className='text-2xl'/>
-                            <a className='hidden sm:block'>Hotel</a>
+                            <Link to={ADMIN_HOTEL}>
+                                <a className='hidden sm:block'>Hotel</a>
+                            </Link>
                         </li>
                         <li className="flex space-x-4 items-center hover:text-indigo-600 cursor-pointer">
                             <BsCardChecklist className='text-2xl'/>

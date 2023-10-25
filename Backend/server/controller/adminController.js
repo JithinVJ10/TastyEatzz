@@ -1,6 +1,7 @@
 import jwt from 'jsonwebtoken'
 import User from '../model/userModel.js'
 import Rider from '../model/riderModel.js'
+import Hotel from '../model/hotelModel.js'
 
 // generate jwt
 const generateToken = (id)=>{
@@ -82,6 +83,27 @@ const getRider = async (req,res,next)=>{
     }
 }
 
+// Get Hotels
+
+const getHotels = async (req,res,next)=>{
+  try {
+    const hotels = await Hotel.find()
+
+    if (hotels) {
+        res.status(200).json({
+            message:"All rider Data",
+            hotels
+        })
+    }else{
+        res.status(500);
+        throw new Error('Server Error Hotels not found');
+    }
+} catch (error) {
+    console.log(error);
+    next(error)
+}
+}
+
 
 const blockUnblockUser = async (req, res, next, isBlocked,Model) => {
     try {
@@ -97,9 +119,9 @@ const blockUnblockUser = async (req, res, next, isBlocked,Model) => {
   
       if (user) {
         const message = isBlocked ? "Successfully blocked" : "Successfully unblocked";
-        res.status(200).json({ message });
+        res.status(200).json({ success:true, message });
       } else {
-        res.status(500).json({ message: "Server Error" });
+        res.status(500).json({ success:false, message: "Server Error" });
       }
     } catch (error) {
       console.log(error);
@@ -107,6 +129,7 @@ const blockUnblockUser = async (req, res, next, isBlocked,Model) => {
     }
   };
   
+  // User Block and UnBlock
   const blockUser = (req, res, next) => {
     blockUnblockUser(req, res, next, true ,User);
   };
@@ -115,6 +138,7 @@ const blockUnblockUser = async (req, res, next, isBlocked,Model) => {
     blockUnblockUser(req, res, next, false, User);
   };
   
+  // Rider Block and UnBlock
   const blockRider = (req, res, next) => {
     blockUnblockUser(req, res, next, true, Rider);
   };
@@ -122,7 +146,20 @@ const blockUnblockUser = async (req, res, next, isBlocked,Model) => {
   const unBlockRider = (req, res, next) => {
     blockUnblockUser(req, res, next, false, Rider);
   };
+
+  // Hotel Block and UnBlock
+  const blockHotel = (req,res, next )=>{
+    blockUnblockUser(req,res, next, true, Hotel)
+  }
+
+  const unBlockHotel = (req,res, next )=>{
+    blockUnblockUser(req,res, next, false, Hotel)
+  }
   
 
 
-export {adminLogin, getUser,getRider,blockUser,unBlockUser,blockRider,unBlockRider}
+export {
+  adminLogin, getUser,getRider,
+  blockUser,unBlockUser,blockRider,unBlockRider,getHotels,
+  blockHotel,unBlockHotel
+}

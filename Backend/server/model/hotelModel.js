@@ -26,6 +26,7 @@ const HotelSchema = new mongoose.Schema(
       },
       isBlocked: {
         type: Boolean,
+        default: false,
       },
       photo:[ {
         type: String,
