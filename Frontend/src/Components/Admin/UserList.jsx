@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { axiosInstance } from "../../api/axiosInstance";
+import swal from 'sweetalert'
 
 const UserList = () => {
   const [users, setUsers] = useState([]);
@@ -13,25 +14,60 @@ const UserList = () => {
     })
   }, []);
 
+  const handleClick = (action,userId)=>{
+    swal({
+      title: "Are you sure?",
+      icon: "warning",
+      buttons: true,
+      dangerMode: true,
+    })
+    .then((willDelete) => {
+      if (willDelete) {
+        handleAction(action,userId)
+      } else {
+        swal({title: `Cancel the ${action}`});
+      }
+    });
+  }
+
 
   const handleAction = async (action, userId) => {
     try {
       let updatedUsers = [...users]; // Create a copy of the current users array
   
       if (action === 'block') {
-        await axiosInstance.put(`/admin/blockUser/${userId}`);
-        // Update the user's 'isBlocked' property in the local state
-        updatedUsers = updatedUsers.map((user) =>
-          user._id === userId ? { ...user, isBlocked: true } : user
-        );
+        const res = await axiosInstance.put(`/admin/blockUser/${userId}`);
+        if (res.data.success) {
+          swal(res.data.message, {
+            icon: "success",
+          });
+          // Update the user's 'isBlocked' property in the local state
+          updatedUsers = updatedUsers.map((user) =>
+            user._id === userId ? { ...user, isBlocked: true } : user
+          );
+        }else{
+          swal({
+            title: res.data.message,
+            icon: "error",
+          });
+        }
       }
   
       if (action === 'unblock') {
-        await axiosInstance.put(`/admin/unblockUser/${userId}`);
-        // Update the user's 'isBlocked' property in the local state
-        updatedUsers = updatedUsers.map((user) =>
-          user._id === userId ? { ...user, isBlocked: false } : user
-        );
+        const res = await axiosInstance.put(`/admin/unblockUser/${userId}`);
+        if (res.data.success) {
+          swal(res.data.message, {
+            icon: "success",
+          });
+          updatedUsers = updatedUsers.map((user) =>
+            user._id === userId ? { ...user, isBlocked: false } : user
+          );
+        }else{
+          swal({
+            title: res.data.message,
+            icon: "error",
+          });
+        }
       }
   
       setUsers(updatedUsers); // Update the state with the modified users array
@@ -88,11 +124,11 @@ const UserList = () => {
                     
                     <td className="px-6 py-4 whitespace-no-wrap">
                       {user.isBlocked ? 
-                      <button onClick={()=> handleAction('unblock',user._id)} className="bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">
+                      <button onClick={()=> handleClick('unblock',user._id)} className="bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">
                         unBlock
                       </button> :
                     <>
-                      <button onClick={()=> handleAction('block',user._id)} className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">
+                      <button onClick={()=> handleClick('block',user._id)} className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">
                         Block
                       </button>
                     </>

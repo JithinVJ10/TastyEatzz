@@ -2,8 +2,11 @@ import React,{useState, useEffect} from "react";
 import { Link } from "react-router-dom";
 import { HOTEL_ADD_FOOD, HOTEL_CATEGORY, HOTEL_CUSINE } from "../../RoutePaths/RoutePaths";
 import { axiosInstance } from "../../api/axiosInstance";
+import EditFoodModel from "./EditFoodModel";
 
 const FoodList = () => {
+  const [showModal, setShowModal] = useState(false)
+  const [foodToEdit, setFoodToEdit] = useState()
   const [foods, setFoods] = useState([])
 
   useEffect(()=>{
@@ -16,6 +19,18 @@ const FoodList = () => {
       console.log(error);
     })
   },[])
+
+  const handleUpdate = (foodId) => {
+    const selectedFood = foods.find((food) => food._id === foodId);
+    console.log("Selected Food:", selectedFood);
+    console.log("Food ID:", foodId);
+
+    // Make sure the selectedFood is not undefined
+    if (selectedFood) {
+      setFoodToEdit(selectedFood);
+      setShowModal(true);
+    }
+  }
   return (
     <div>
       <div className="flex justify-between items-start">
@@ -38,7 +53,7 @@ const FoodList = () => {
           </Link>
         </div>
       </div>
-
+      <EditFoodModel showModal={showModal} setShowModal={setShowModal} foodToEdit={foodToEdit}/>
       <div className="overflow-x-auto">
         <table className="min-w-full divide-y divide-gray-200">
           <thead>
@@ -72,7 +87,7 @@ const FoodList = () => {
             {foods?.map((food) => {
               return (
                 <>
-                  <tr>
+                  <tr key={food._id}>
                     <td className="px-6 py-4 whitespace-no-wrap">
                       {food?.name}
                     </td>
@@ -89,7 +104,7 @@ const FoodList = () => {
                       <img src={food.imageUrl} className="w-16" alt="" />
                     </td>
                     <td className="px-6 py-4 whitespace-no-wrap">
-                    <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mr-3">
+                    <button onClick={()=>handleUpdate(food._id)}  className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mr-3">
                       Edit
                     </button>
                     </td>

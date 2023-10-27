@@ -206,4 +206,11 @@ const getCuisine = async (req,res,next)=>{
   }
 }
 
-export {hotelRegister, hotelLogin, addFoodItem,getFoodItem,addCategory,getCategory, addCuisine, getCuisine}
+const UpdateFoodItem = (req,res,next)=>{
+
+}
+
+export {
+  hotelRegister, hotelLogin, addFoodItem,getFoodItem,
+  addCategory,getCategory, addCuisine, getCuisine,UpdateFoodItem
+}

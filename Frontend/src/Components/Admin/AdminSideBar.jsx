@@ -4,7 +4,7 @@ import { AdminLogout } from '../../Redux/slice/adminSlice'
 import {toast} from 'react-toastify'
 import { Link, useNavigate } from 'react-router-dom'
 import { ADMIN_DASHBOARD, ADMIN_FOOD, ADMIN_HOTEL, ADMIN_LOGIN, ADMIN_RIDER, ADMIN_USER } from '../../RoutePaths/RoutePaths'
-import {FaBiking, FaFirstOrder, FaHamburger, FaHotel, FaHubspot, FaTable, FaUser} from 'react-icons/fa'
+import {FaBiking, FaHamburger, FaHotel, FaHubspot, FaTable, FaUser} from 'react-icons/fa'
 import { BsCardChecklist } from 'react-icons/bs'
 import {IoMdSettings} from 'react-icons/io'
 
