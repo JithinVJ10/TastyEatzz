@@ -40,6 +40,10 @@ const foodSchema = new mongoose.Schema({
     availableTo: {
         type: Date,
     },
+    isBlocked:{
+        type: Boolean,
+        default: false
+    }
 }, { timestamps: true });
 
 const Food = mongoose.model("Foods", foodSchema);

@@ -1,13 +1,11 @@
 import Hotel from "../model/hotelModel.js"
 import Food from "../model/foodModel.js"
-import jwt from "jsonwebtoken"
+
 import {Category, CuisineType } from '../model/menuModel.js'
+import { blockUnblockHelper } from "../utils/blockUnblockHelper.js"
+import generateToken from "../utils/generateToken.js"
 
 
-// generate jwt
-const generateToken = (id)=>{
-    return jwt.sign({id},process.env.JWT_Secret,{expiresIn:'30d'})
-}
 
 const hotelRegister = async (req,res,next)=>{
     
@@ -206,11 +204,69 @@ const getCuisine = async (req,res,next)=>{
   }
 }
 
-const UpdateFoodItem = (req,res,next)=>{
+// UpdateFoodItem
+const UpdateFoodItem = async (req,res,next)=>{
+  try {
+    const {name,category,cuisineType,description,price,imageUrl,availableFrom,availableTo,hotelName} =req.body
+    const {id} = req.params
+    console.log('UpdateFoodItem id: ',id);
 
+    const updateFoodItem = await Food.findByIdAndUpdate(id,{
+      name,category,cuisineType,description,price,imageUrl,availableFrom,availableTo,hotelName
+    },{new:true})
+
+    if (updateFoodItem) {
+      const foodItem = await Food.find().populate('cuisineType').populate('category')
+      if (foodItem) {
+        res.status(201).json({
+          message:'Success',foodItem
+        })
+      }
+    }else{
+      console.log('Server error while updating food item');
+      const error = new Error('Server error while updating food item');
+      error.statusCode = 501; // You can set a custom status code if needed
+      throw error;
+    }
+  } catch (error) {
+    console.log(error)
+    next(error)
+  }
 }
+
+// food item hide or unhide
+
+const foodItemBlock = async (req,res,next)=>{
+  blockUnblockHelper(req, res, next, true ,Food);
+}
+
+const foodItemUnBlock = async (req,res,next)=>{
+  blockUnblockHelper(req, res, next, false ,Food);
+}
+
+// update Category
+
+const updateCategory = async (req,res,next)=>{
+  try {
+    const {id} = req.params
+    const {name} = req.body
+
+    const update = await Category.findByIdAndUpdate(id,{
+      name
+    },{new:true})
+
+    if (update) {
+      res.status(201).json({sucess:true, message:'Sucessfully Updated'})
+    }
+  } catch (error) {
+    console.log(error)
+    next(error)
+  }
+}
+
 
 export {
   hotelRegister, hotelLogin, addFoodItem,getFoodItem,
-  addCategory,getCategory, addCuisine, getCuisine,UpdateFoodItem
+  addCategory,getCategory, addCuisine, getCuisine,UpdateFoodItem,
+  foodItemBlock,foodItemUnBlock,updateCategory
 }

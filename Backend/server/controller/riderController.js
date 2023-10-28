@@ -1,10 +1,6 @@
-import jwt from 'jsonwebtoken'
 import Rider from '../model/riderModel.js'
+import generateToken from '../utils/generateToken.js';
 
-// generate jwt
-const generateToken = (id)=>{
-    return jwt.sign({id},process.env.JWT_Secret,{expiresIn:'30d'})
-}
 
 // Rider registeration
 const riderRegister = async (req,res,next)=>{

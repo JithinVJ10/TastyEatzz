@@ -7,6 +7,9 @@ import { axiosInstance } from '../../api/axiosInstance'
 
 const HotelCategory = () => {
     const [categories, setCategories] = useState()
+    const [categoryToEdit,setCategoryToEdit] = useState()
+    const [showModal,setShowModal] = useState(false)
+
     useEffect(()=>{
       try {
         axiosInstance.get('/hotel/getCategory').then((res)=>{
@@ -19,7 +22,28 @@ const HotelCategory = () => {
       } catch (error) {
         console.log(error);
       }
-    },[categories])
+    },[])
+
+    const handleEdit = (categoryId) =>{
+      const selectedCat = categories.find((category) => category._id === categoryId);
+      console.log("Selected Cat:", selectedCat);
+      console.log("Category ID:", categoryId);
+  
+      // Make sure the selectedFood is not undefined
+      if (selectedCat) {
+        setCategoryToEdit(selectedCat);
+        setShowModal(true);
+      }
+    }
+
+    const handleUpdate = async (categoryId)=>{
+      try {
+        const res = await axiosInstance.put(`/hotel/updateCategory/${categoryId}`)
+      } catch (error) {
+        
+      }
+    }
+
   return (
     <div className='flex  h-screen'>
       
@@ -30,6 +54,7 @@ const HotelCategory = () => {
       <div>
         <HotelHeader/>
       </div>
+      <EditFoodModel showModal={showModal} setShowModal={setShowModal} foodToEdit={categoryToEdit} handleUpdate={handleUpdate}/>
       <div className='pl-8 mt-2'>
       <div>
       <div className="flex justify-between items-start">
@@ -75,7 +100,7 @@ const HotelCategory = () => {
                       {category?.name}
                     </td>
                     <td className="px-6 py-4 whitespace-no-wrap">
-                    <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mr-3">
+                    <button onClick={()=> handleEdit(category._id)} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mr-3">
                       Edit
                     </button>
                     </td>

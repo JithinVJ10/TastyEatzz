@@ -1,10 +1,6 @@
 import User from "../model/userModel.js";
 import jwt from 'jsonwebtoken'
-
-// generate jwt
-const generateToken = (id)=>{
-    return jwt.sign({id},process.env.JWT_Secret,{expiresIn:'30d'})
-}
+import generateToken from "../utils/generateToken.js";
 
 // user register /admin/userRegister
 const userRegister = async (req,res,next)=>{

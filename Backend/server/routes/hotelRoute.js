@@ -1,7 +1,7 @@
 import express from 'express'
 import { 
-    UpdateFoodItem, addCategory, addCuisine, addFoodItem, getCategory, 
-    getCuisine, getFoodItem, hotelLogin, hotelRegister 
+    UpdateFoodItem, addCategory, addCuisine, addFoodItem, foodItemBlock, foodItemUnBlock, getCategory, 
+    getCuisine, getFoodItem, hotelLogin, hotelRegister, updateCategory
 } from '../controller/hotelControler.js'
 const route = express.Router()
 
@@ -16,5 +16,9 @@ route.get('/getCuisine',getCuisine)
 
 //update food item
 route.put('/UpdateFoodItem/:id',UpdateFoodItem)
+route.put('/foodItemBlock/:id',foodItemBlock)
+route.put('/foodItemUnBlock/:id',foodItemUnBlock)
+// Update Category
+route.put('/updateCategory',updateCategory)
 
 export default route

@@ -31,6 +31,71 @@ const FoodList = () => {
       setShowModal(true);
     }
   }
+
+  const handleClick = (action,userId)=>{
+    swal({
+      title: "Are you sure?",
+      icon: "warning",
+      buttons: true,
+      dangerMode: true,
+    })
+    .then((willDelete) => {
+      if (willDelete) {
+        handleAction(action,userId)
+      } else {
+        swal({title: `Cancel the ${action}`});
+      }
+    });
+  }
+
+  const handleAction = async (action, userId) => {
+    try {
+      let updateFoods = [...foods]; // Create a copy of the current users array
+  
+      if (action === 'block') {
+        const res = await axiosInstance.put(`/hotel/foodItemBlock/${userId}`);
+        if (res.data.success) {
+          swal(res.data.message, {
+            icon: "success",
+          });
+          // Update the user's 'isBlocked' property in the local state
+          updateFoods = updateFoods.map((user) =>
+          user._id === userId ? { ...user, isBlocked: true } : user
+        );
+        }else{
+          swal({
+            title: res.data.message,
+            icon: "error",
+          });
+        }
+      }
+  
+      if (action === 'unblock') {
+        const res = await axiosInstance.put(`/hotel/foodItemUnBlock/${userId}`);
+        
+        if (res.data.success) {
+          swal(res.data.message, {
+            icon: "success",
+          });
+          updateFoods = updateFoods.map((user) =>
+            user._id === userId ? { ...user, isBlocked: false } : user
+          );
+        }else{
+          swal({
+            title: res.data.message,
+            icon: "error",
+          });
+        }
+      }
+  
+      setFoods(updateFoods); // Update the state with the modified users array
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+
+
   return (
     <div>
       <div className="flex justify-between items-start">
@@ -53,7 +118,7 @@ const FoodList = () => {
           </Link>
         </div>
       </div>
-      <EditFoodModel showModal={showModal} setShowModal={setShowModal} foodToEdit={foodToEdit}/>
+      <EditFoodModel showModal={showModal} setShowModal={setShowModal} foodToEdit={foodToEdit} setFoods={setFoods}/>
       <div className="overflow-x-auto">
         <table className="min-w-full divide-y divide-gray-200">
           <thead>
@@ -109,9 +174,16 @@ const FoodList = () => {
                     </button>
                     </td>
                     <td className="px-6 py-4 whitespace-no-wrap">
-                    <button className="bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-4 rounded mr-3">
-                      Remove
-                    </button>
+                    {food?.isBlocked ? 
+                      <button onClick={()=> handleClick('unblock',food._id)} className="bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">
+                        unBlock
+                      </button> :
+                    <>
+                      <button onClick={()=> handleClick('block',food._id)} className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">
+                        Block
+                      </button>
+                    </>
+                      }
                     </td>
                   </tr>
                 </>

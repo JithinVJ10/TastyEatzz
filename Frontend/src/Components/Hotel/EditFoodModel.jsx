@@ -4,9 +4,10 @@ import { Cloud_name, Upload_preset, imageUploadURL } from "../../api/cloudinaryA
 import axios from "axios";
 import {toast,ToastContainer} from 'react-toastify'
 import { useNavigate } from 'react-router-dom'
+import { useSelector } from "react-redux";
 
 
-export default function EditFoodModel({showModal,setShowModal, foodToEdit}) {
+export default function EditFoodModel({showModal,setShowModal, foodToEdit, setFoods}) {
 
   
   const [foodData, setfoodData] = useState({
@@ -18,15 +19,11 @@ export default function EditFoodModel({showModal,setShowModal, foodToEdit}) {
     availableFrom: null,
     availableTo: null,
   });
+
+  const {hotelCred} = useSelector((state)=>state.hotel)
   
   useEffect(() => {
     if (foodToEdit) {
-      const formatTime = (time) => {
-        const date = new Date(time);
-        const hours = date.getUTCHours().toString().padStart(2, '0');
-        const minutes = date.getUTCMinutes().toString().padStart(2, '0');
-        return `${hours}:${minutes}`;
-      };
 
       setfoodData({
         name: foodToEdit.name || "",
@@ -34,8 +31,8 @@ export default function EditFoodModel({showModal,setShowModal, foodToEdit}) {
         cuisineType: foodToEdit.cuisineType ? foodToEdit.cuisineType.name : null,
         description: foodToEdit.description || "",
         price: foodToEdit.price || null,
-        availableFrom: formatTime(foodToEdit.availableFrom) || null,
-        availableTo: formatTime(foodToEdit.availableTo) || null,
+        availableFrom: foodToEdit.availableFrom || null,
+        availableTo: foodToEdit.availableTo || null,
       });
     }
   }, [foodToEdit]);
@@ -121,7 +118,7 @@ export default function EditFoodModel({showModal,setShowModal, foodToEdit}) {
           console.error("Error uploading photo2", error);
         }
     
-        axiosInstance.post('/hotel/UpdateFoodItem',{
+        axiosInstance.put(`/hotel/UpdateFoodItem/${foodToEdit._id}`,{
           name:foodData.name,
           category:foodData.category,
           cuisineType:foodData.cuisineType,
@@ -134,20 +131,20 @@ export default function EditFoodModel({showModal,setShowModal, foodToEdit}) {
         }).then((res)=>{
           if (res.data.foodItem) {
             console.log(res.data.fooditem,'dsdqwdqeeeeeeee');
-            setTimeout(()=>{
-              navigate(HOTEL_FOOD)
-            },2000)
+            setFoods(res.data.foodItem)
+            setShowModal(false)
             toast.success('Sucess')
           }
         }).catch((error)=>{
           console.log('fdhsfdeeeeeeeeeee');
-          toast.error(error.response?.data?.message)
+          toast.error(error?.response?.data?.message)
           console.log(error);
         })
     
     };
   return (
     <>
+      <ToastContainer/>
       {showModal ? (
         <>
           <div
@@ -268,7 +265,7 @@ export default function EditFoodModel({showModal,setShowModal, foodToEdit}) {
                         <div className='p-1'>
                             <label htmlFor='availableFrom' className=''>Available From</label>
                             <input 
-                            type="time"
+                            type="date"
                             className='block w-full px-3 py-1 mt-1 text-purple-700 bg-white border rounded-md focus:border-purple-400 focus:ring-purple-300 focus:outline-none focus:ring focus:ring-opacity-40'
                             value={foodData.availableFrom}
                             name='availableFrom'
@@ -280,7 +277,7 @@ export default function EditFoodModel({showModal,setShowModal, foodToEdit}) {
                         <div className='p-1'>
                             <label htmlFor='availableTo' className=''>Available To</label>
                             <input 
-                            type="time"
+                            type="date"
                             className='block w-full px-3 py-1 mt-1 text-purple-700 bg-white border rounded-md focus:border-purple-400 focus:ring-purple-300 focus:outline-none focus:ring focus:ring-opacity-40'
                             value={foodData.availableTo}
                             name='availableTo'
