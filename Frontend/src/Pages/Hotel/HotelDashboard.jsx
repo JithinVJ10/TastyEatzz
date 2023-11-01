@@ -1,25 +1,18 @@
-import React from 'react'
+import React, { useState } from 'react'
 import HotelSideNav from '../../Components/Hotel/HotelSideNav'
 import HotelHeader from '../../Components/Hotel/HotelHeader'
 
 const HotelDashboard = () => {
+  const [openSidebarToggle, setOpenSidebarToggle] = useState(false)
+
+  const OpenSidebar = () => {
+    setOpenSidebarToggle(!openSidebarToggle)
+  }
   return (
-    <div className='flex  h-screen'>
-      
-
-    <HotelSideNav/>
-    
-    <div className='flex-grow bg-gray-200 relative top-0 left-20'>
-      <div>
-        <HotelHeader/>
-      </div>
-      <div className='pl-8 mt-2'>
-        <h1>Dashboard</h1>
-      </div>
-
-      
-    </div>
-    
+    <div className='grid-container'>
+    <HotelSideNav openSidebarToggle={openSidebarToggle} OpenSidebar={OpenSidebar}/>
+    <HotelHeader OpenSidebar={OpenSidebar}/>
+    <p className='px-10'>Dashboard</p>
   </div>
   )
 }

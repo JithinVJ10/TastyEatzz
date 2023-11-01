@@ -1,30 +1,20 @@
-import React from 'react'
+import React, { useState } from 'react'
 import HotelSideNav from '../../Components/Hotel/HotelSideNav'
 import HotelHeader from '../../Components/Hotel/HotelHeader'
 import AddFoodItem from '../../Components/Hotel/AddFoodItem'
 
 const AddFood = () => {
-  return (
-    <>
-    <div className='flex  h-screen'>
-      
+  const [openSidebarToggle, setOpenSidebarToggle] = useState(false)
 
-      <HotelSideNav/>
-      
-      <div className='flex-grow bg-gray-200 relative top-0 left-20'>
-        <div>
-          <HotelHeader/>
-        </div>
-        <div className='pl-8 mt-2'>
-          <AddFoodItem/>
-        </div>
-  
-        
-      </div>
-      
-    </div>
-      
-    </>
+  const OpenSidebar = () => {
+    setOpenSidebarToggle(!openSidebarToggle)
+  }
+  return (
+    <div className='grid-container'>
+    <HotelSideNav openSidebarToggle={openSidebarToggle} OpenSidebar={OpenSidebar}/>
+    <HotelHeader OpenSidebar={OpenSidebar}/>
+    <AddFoodItem/>
+  </div>
   )
 }
 

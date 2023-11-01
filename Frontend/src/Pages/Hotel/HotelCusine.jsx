@@ -13,6 +13,12 @@ const HotelCusine = () => {
     const [cuisineToEdit,setCuisineToEdit] = useState()
     const [showModal,setShowModal] = useState(false)
 
+    const [openSidebarToggle, setOpenSidebarToggle] = useState(false)
+
+    const OpenSidebar = () => {
+      setOpenSidebarToggle(!openSidebarToggle)
+    }
+
     useEffect(()=>{
       try {
         axiosInstance.get('/hotel/getCuisine').then((res)=>{
@@ -121,19 +127,18 @@ const HotelCusine = () => {
 
 
   return (
-    <div className='flex  h-screen'>
+    <div className='grid-container'>
     <ToastContainer/>
 
-    <HotelSideNav/>
+    <HotelSideNav openSidebarToggle={openSidebarToggle} OpenSidebar={OpenSidebar}/>
     <EditCategory showModal={showModal} setShowModal={setShowModal} categoryToEdit={cuisineToEdit} handleUpdate={handleUpdate}/>
-    <div className='flex-grow bg-gray-200 relative top-0 left-20'>
-      <div>
-        <HotelHeader/>
-      </div>
-      <div className='pl-8 mt-2'>
+    <HotelHeader OpenSidebar={OpenSidebar}/>
+
+      {/* // main */}
+      <main className='main-container'>
       <div>
       <div className="flex justify-between items-start">
-        <p className="text-4xl mb-8 font-extrabold text-yellow-950">Food Category</p>
+        <p className="text-4xl mb-8 font-extrabold text-yellow-950">Food Cuisine</p>
         <div className="">
         
           <Link to={HOTEL_ADD_CUSINE}>
@@ -200,10 +205,8 @@ const HotelCusine = () => {
         </table>
       </div>
     </div>
-      </div>
+    </main>
 
-      
-    </div>
     
   </div>
   )

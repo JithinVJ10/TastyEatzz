@@ -12,6 +12,12 @@ const AddCusine = () => {
 
     const navigate = useNavigate()
 
+    const [openSidebarToggle, setOpenSidebarToggle] = useState(false)
+
+    const OpenSidebar = () => {
+      setOpenSidebarToggle(!openSidebarToggle)
+    }
+
     const handleSubmit = async (e)=>{
         e.preventDefault()
 
@@ -36,16 +42,10 @@ const AddCusine = () => {
     }
     return (
         <>
-        <div className='flex  h-screen'>
-        <ToastContainer/>
-
-        <HotelSideNav/>
-        
-        <div className='flex-grow bg-gray-200 relative top-0 left-20'>
-            <div>
-            <HotelHeader/>
-            </div>
-            <div className='pl-8 mt-2'>
+        <div className='grid-container'>
+            <HotelSideNav openSidebarToggle={openSidebarToggle} OpenSidebar={OpenSidebar}/>
+            <HotelHeader OpenSidebar={OpenSidebar}/>
+            <main className='main-container'>
                 <form onSubmit={handleSubmit}>
                     <div className='p-1'>
                         <label htmlFor='name' className=''>Cusine Name</label>
@@ -65,10 +65,7 @@ const AddCusine = () => {
                     </button>
                     </div>
                 </form>
-            </div>
-
-            
-        </div>
+            </main>
         </div>
     </>
   )

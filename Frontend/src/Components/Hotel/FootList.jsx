@@ -97,9 +97,9 @@ const FoodList = () => {
 
 
   return (
-    <div>
+    <main className='main-container'>
       <div className="flex justify-between items-start">
-        <p className="text-4xl mb-8 font-extrabold text-yellow-950">Foods</p>
+        <p className="text-4xl mb-8 font-extrabol">Foods</p>
         <div className="">
         <Link to={HOTEL_CATEGORY}>
           <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mr-3">
@@ -192,7 +192,7 @@ const FoodList = () => {
           </tbody>
         </table>
       </div>
-    </div>
+    </main>
   )
 }
 

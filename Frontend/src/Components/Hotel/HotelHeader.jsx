@@ -12,6 +12,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { ADMIN_DASHBOARD, HOTEL_DASHBOARD, HOTEL_LOGIN } from '../../RoutePaths/RoutePaths'
 import { hotelLogout } from '../../Redux/slice/hotelSlice' 
 import DropdownButton from './DropDown'
+import { BsJustify } from 'react-icons/bs'
 
 
 const callsToAction = [
@@ -43,8 +44,11 @@ export default function HotelHeader(props) {
   }
 
   return (
-    <header className="bg-white ">
+    <header className="header bg-white">
       <nav className="mx-auto flex max-w-7xl items-center justify-between p-6 lg:px-8" aria-label="Global">
+      <div className='menu-icon'>
+            <BsJustify className='icon' onClick={props.OpenSidebar}/>
+        </div>
         <div className="flex lg:flex-1">
           <Link to={HOTEL_DASHBOARD}>
           <div className="-m-1.5 p-1.5 flex">

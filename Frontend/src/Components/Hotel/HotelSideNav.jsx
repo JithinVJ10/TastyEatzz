@@ -5,54 +5,48 @@ import { Link } from 'react-router-dom'
 import { HOTEL_DASHBOARD, HOTEL_FOOD } from '../../RoutePaths/RoutePaths'
 import { IoMdSettings } from 'react-icons/io'
 
-const HotelSideNav = () => {
+const HotelSideNav = ({openSidebarToggle, OpenSidebar}) => {
 
   return (
-    <div className='flex'>
-     
-        <nav className=" fixed top-0 left-0 bottom-0 rounded-md w-72 sm:w-30! flex-col justify-between ml-0 pl-4 bg-purple-700 ">
-            <div className=" bg-purple-700 h-full">
-                <div className="flex py-10 shadow-sm pr-4">
-
-                    <div className="">
-
-                        <h1 className={'text-4xl font-bold text-white'}>TastyEatzz</h1>
-                            <span className={'sm' ? 'relative top-0 right-0 text-xs text-gray-800' :'text-lg block text-gray-800'}>Hotel</span>
-                    </div>
-                </div>
-                <div className="">
-                    <ul className="space-y-8 pt-10">
-                        <li className="flex space-x-4 items-center hover:text-indigo-600 cursor-pointer">
-                            <FaTable className='text-2xl'/>
-                            <Link to={HOTEL_DASHBOARD}>
-                                <a className='hidden sm:block'>Dashboard</a>
-                            </Link>
-                        </li>
-                        <li className="flex space-x-4 items-center hover:text-indigo-600 cursor-pointer">
-                            <FaHamburger className='text-2xl' />
-                            <Link to={HOTEL_FOOD}>
-                                <a className="hidden sm:block">Food Item</a>
-                            </Link>
-                        </li>
-                        <li className="flex space-x-4 items-center hover:text-indigo-600 cursor-pointer">
-                            <FaUser className='text-2xl'/>
-                            <Link to={''}>
-                            <a className='hidden sm:block'>Profile</a>
-                            </Link>
-                        </li>
-                        <li className="flex space-x-4 items-center hover:text-indigo-600 cursor-pointer">
-                            <BsCardChecklist className='text-2xl'/>
-                            <a className='hidden sm:block'>Orders</a>
-                        </li>
-                        <li className="flex space-x-4 items-center hover:text-indigo-600 cursor-pointer">
-                            <IoMdSettings className='text-2xl'/>
-                            <a className='hidden sm:block'>Settings</a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </nav>
-    </div>
+    <>
+         <aside id='sidebar' className={openSidebarToggle ? "sidebar-responsive": ""}>
+        <div className='sidebar-title'>
+          <div className='sidebar-brand'>
+          <h1 className={'text-lg lg:text-2xl font-bold text-indigo-600'}>TastyEatzz</h1>
+           <span className={'sm' ? 'relative top-0 right-0 text-xs text-gray-800' :'text-xs block text-gray-800'}>HOTEL</span>
+          </div>
+          <span className='icon close_icon' onClick={OpenSidebar}>X</span>
+        </div>
+        <ul className='sidebar-list'>
+          <li className='sidebar-list-item'>
+          <FaTable className='text-2xl'/>
+             <Link to={HOTEL_DASHBOARD}>
+                 <a className='hidden sm:block pl-2'>Dashboard</a>
+             </Link>
+          </li>
+          <li className='sidebar-list-item'>
+          <FaHamburger className='text-2xl' />
+             <Link to={HOTEL_FOOD}>
+                 <a className="hidden sm:block pl-2">Food Item</a>
+             </Link>
+          </li>
+          <li className='sidebar-list-item'>
+          <FaUser className='text-2xl'/>
+             <Link to={''}>
+             <a className='hidden sm:block pl-2'>Profile</a>
+             </Link>
+          </li>
+          <li className='sidebar-list-item'>
+          <BsCardChecklist className='text-2xl'/>
+            <a className='hidden sm:block pl-2'>Orders</a>
+          </li>
+          <li className='sidebar-list-item'>
+          <IoMdSettings className='text-2xl'/>
+             <a className='hidden sm:block pl-2'>Settings</a>
+          </li>
+        </ul>
+      </aside>
+    </>
   )
 }
 

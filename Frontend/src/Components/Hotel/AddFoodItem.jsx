@@ -127,7 +127,7 @@ const AddFoodItem = () => {
 
 
   return (
-    <div>
+    <main className='main-container'>
       <ToastContainer/>
       <div>
         <form onSubmit={handleSubmit}>
@@ -258,7 +258,7 @@ const AddFoodItem = () => {
             
         </form>
       </div>
-    </div>
+    </main>
   )
 }
 

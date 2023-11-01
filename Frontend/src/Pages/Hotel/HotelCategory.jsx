@@ -13,6 +13,12 @@ const HotelCategory = () => {
     const [categoryToEdit,setCategoryToEdit] = useState()
     const [showModal,setShowModal] = useState(false)
 
+    const [openSidebarToggle, setOpenSidebarToggle] = useState(false)
+
+    const OpenSidebar = () => {
+      setOpenSidebarToggle(!openSidebarToggle)
+    }
+
     useEffect(()=>{
       try {
         axiosInstance.get('/hotel/getCategory').then((res)=>{
@@ -120,18 +126,16 @@ const HotelCategory = () => {
     };
 
   return (
-    <div className='flex  h-screen'>
+    <div className='grid-container'>
       <ToastContainer/>
       
 
-    <HotelSideNav/>
-    
-    <div className='flex-grow bg-gray-200 relative top-0 left-20'>
-      <div>
-        <HotelHeader/>
-      </div>
+      <HotelSideNav openSidebarToggle={openSidebarToggle} OpenSidebar={OpenSidebar}/>
+      <HotelHeader OpenSidebar={OpenSidebar}/>
+      
       <EditCategory showModal={showModal} setShowModal={setShowModal} categoryToEdit={categoryToEdit} handleUpdate={handleUpdate}/>
-      <div className='pl-8 mt-2'>
+      {/* // main */}
+      <main className='main-container'>
       <div>
       <div className="flex justify-between items-start">
         <p className="text-4xl mb-8 font-extrabold text-yellow-950">Food Category</p>
@@ -201,10 +205,9 @@ const HotelCategory = () => {
         </table>
       </div>
     </div>
-      </div>
+    </main>
 
       
-    </div>
     
   </div>
   )
