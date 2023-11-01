@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react'
-import { axiosInstance } from '../../api/axiosInstance'
+import { adminAxiosInstance } from '../../api/axiosInstance'
 import swal from 'sweetalert'
 
 const HotelList = () => {
     const [hotels,sethotels]= useState()
     useEffect(()=>{
         try {
-            axiosInstance('/admin/getHotels').then((res)=>{
+            adminAxiosInstance('/getHotels').then((res)=>{
                 if (res.data.hotels) {
                     sethotels(res.data.hotels)
                 }
@@ -39,7 +39,7 @@ const HotelList = () => {
           let updatedUsers = [...hotels]; // Create a copy of the current users array
       
           if (action === 'block') {
-            const res = await axiosInstance.put(`/admin/blockHotel/${userId}`);
+            const res = await adminAxiosInstance.put(`/blockHotel/${userId}`);
             if (res.data.success) {
               swal(res.data.message, {
                 icon: "success",
@@ -57,7 +57,7 @@ const HotelList = () => {
           }
       
           if (action === 'unblock') {
-            const res = await axiosInstance.put(`/admin/unBlockHotel/${userId}`);
+            const res = await adminAxiosInstance.put(`/unBlockHotel/${userId}`);
             if (res.data.success) {
               swal(res.data.message, {
                 icon: "success",
@@ -80,7 +80,7 @@ const HotelList = () => {
       };
 
   return (
-    <div>
+    <main className='main-container'>
       <div className="flex justify-between items-start">
         <p className="text-5xl mb-8 font-extrabold">Hotels</p>
       </div>
@@ -137,7 +137,7 @@ const HotelList = () => {
           </tbody>
         </table>
       </div>
-    </div>
+    </main>
   )
 }
 

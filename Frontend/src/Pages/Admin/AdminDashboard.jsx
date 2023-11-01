@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { AdminLogout } from '../../Redux/slice/adminSlice'
 import {toast} from 'react-toastify'
@@ -8,26 +8,18 @@ import Header from '../../Components/Admin/header'
 
 
 const AdminDashboard = () => {
-  
-    
-    
+  const [openSidebarToggle, setOpenSidebarToggle] = useState(false)
+
+  const OpenSidebar = () => {
+    setOpenSidebarToggle(!openSidebarToggle)
+  }
   return (
-    <div className='flex  h-screen'>
+    <div className='grid-container'>
+      <AdminSideBar openSidebarToggle={openSidebarToggle} OpenSidebar={OpenSidebar}/>
       
+        <Header OpenSidebar={OpenSidebar}/>
 
-      <AdminSideBar/>
-      
-      <div className='flex-grow bg-gray-200 relative top-0 left-20'>
-        <div>
-          <Header/>
-        </div>
-        <div className='pl-8 mt-2'>
-          <h1>Dashboard</h1>
-        </div>
-
-        
-      </div>
-      
+        <p className='px-10'>DashBoard</p>
     </div>
   )
 }

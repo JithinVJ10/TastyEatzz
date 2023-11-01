@@ -20,15 +20,58 @@ const SignUp = () => {
     const submitHandler = async (e) => {
         e.preventDefault();
 
+        const spaceRegex = /^\S*$/;
         if (!isValid) {
             setErr('Invalid Email')
+            setTimeout(()=>{
+                setErr('')
+            },2000)
             return
         }
-      
+
+        if (!spaceRegex.test(username) ) {
+            setErr('Please fill')
+            setTimeout(()=>{
+                setErr('')
+            },2000)
+
+            return
+        }
+        if (!spaceRegex.test(phone) ) {
+            setErr('Please fill')
+            setTimeout(()=>{
+                setErr('')
+            },2000)
+
+            return
+        }
+
+        if (!spaceRegex.test(password) ) {
+            setErr('Please fill')
+            setTimeout(()=>{
+                setErr('')
+            },2000)
+
+            return
+        }
+
+        if (!spaceRegex.test(comfirmpassword) ) {
+            setErr('Please fill')
+            setTimeout(()=>{
+                setErr('')
+            },2000)
+
+            return
+        }
+        
         if (password !== comfirmpassword) {
           setErr('Password not matching');
+          setTimeout(()=>{
+            setErr('')
+        },2000)
           return;
         }
+
       
         try {
           const response = await axiosInstance.post('/userRegister', {

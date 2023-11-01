@@ -1,12 +1,12 @@
 import React, { useEffect,useState } from 'react'
-import { axiosInstance } from '../../api/axiosInstance';
+import { adminAxiosInstance } from '../../api/axiosInstance';
 import swal from 'sweetalert'
 
 const RidersList = () => {
     const [riders,setRiders] = useState([])
     useEffect(()=>{
         try {
-           axiosInstance.get('/admin/getRider').then((response)=>{
+           adminAxiosInstance.get('/getRider').then((response)=>{
                if (response.data.rider) {
                     setRiders(response.data.rider)
                }else{
@@ -39,7 +39,7 @@ const RidersList = () => {
           let updatedUsers = [...riders]; // Create a copy of the current users array
       
           if (action === 'block') {
-            const res = await axiosInstance.put(`/admin/blockRider/${userId}`);
+            const res = await adminAxiosInstance.put(`/blockRider/${userId}`);
             if (res.data.success) {
               swal(res.data.message, {
                 icon: "success",
@@ -57,7 +57,7 @@ const RidersList = () => {
           }
       
           if (action === 'unblock') {
-            const res = await axiosInstance.put(`/admin/unblockRider/${userId}`);
+            const res = await adminAxiosInstance.put(`/unblockRider/${userId}`);
             
             if (res.data.success) {
               swal(res.data.message, {
@@ -81,7 +81,7 @@ const RidersList = () => {
       };
   return (
     <>
-    <div>
+    <main className='main-container'>
       <div className="flex justify-between items-start">
         <p className="text-5xl mb-8 font-extrabold">Rider</p>
       </div>
@@ -138,7 +138,7 @@ const RidersList = () => {
           </tbody>
         </table>
       </div>
-    </div>
+    </main>
     </>
   )
 }

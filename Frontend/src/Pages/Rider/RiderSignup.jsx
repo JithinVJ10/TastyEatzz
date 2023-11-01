@@ -27,6 +27,9 @@ const RiderSignup = () => {
 
     const submitHandler =(e)=>{
         e.preventDefault()
+
+        const spaceRegex = /^\S*$/;
+        
         if (!isValid) {
             setErr('Invalid Email')
             return
@@ -35,6 +38,42 @@ const RiderSignup = () => {
             setErr('Password not matching')
             return
         }
+
+        if (!spaceRegex.test(username) ) {
+            setErr('Please fill')
+            setTimeout(()=>{
+                setErr('')
+            },2000)
+
+            return
+        }
+        if (!spaceRegex.test(phone) ) {
+            setErr('Please fill')
+            setTimeout(()=>{
+                setErr('')
+            },2000)
+
+            return
+        }
+
+        if (!spaceRegex.test(password) ) {
+            setErr('Please fill')
+            setTimeout(()=>{
+                setErr('')
+            },2000)
+
+            return
+        }
+
+        if (!spaceRegex.test(comfirmpassword) ) {
+            setErr('Please fill')
+            setTimeout(()=>{
+                setErr('')
+            },2000)
+
+            return
+        }
+
         try {
             axiosInstance.post('/rider/riderRegister',{email,username,phone,password}).then((res)=>{
                 if (res.data.message) {

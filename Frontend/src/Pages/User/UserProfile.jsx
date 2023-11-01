@@ -11,7 +11,7 @@ const UserProfile = () => {
     <>
     <Header/>
       
-      <div className='flex mt-10'>
+      <div className='flex px-20 mt-10'>
        <ProfileSideNav/>
         <div className=' border border-gray-300 w-full ms-2'>
          <div class="bg-white w-full shadow overflow-hidden sm:rounded-lg">

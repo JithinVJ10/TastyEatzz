@@ -7,7 +7,7 @@ const UserOrder = () => {
     <>
       <Header/>
     
-    <div className='flex mt-10'>
+    <div className='flex px-10 mt-10'>
      <ProfileSideNav/>
       <div className=' border border-gray-300 w-full ms-2'>
         <p className='text-center mt-10'> No Order Data</p>

@@ -6,6 +6,10 @@ const categorySchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  isBlocked:{
+    type:Boolean,
+    default:false,
+  },
 });
 
 // Create the Category model
@@ -16,6 +20,10 @@ const cuisineTypeSchema = new mongoose.Schema({
   name: {
     type: String,
     required: true,
+  },
+  isBlocked:{
+    type:Boolean,
+    default:false,
   },
 });
 

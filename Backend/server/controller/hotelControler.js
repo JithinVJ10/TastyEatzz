@@ -112,7 +112,11 @@ const getFoodItem = async (req,res,next)=>{
 
 const addCategory = async (req,res,next)=>{
   try {
-    const {name} = req.body
+    let {name} = req.body
+
+    // Capitalize the first letter of the name
+    name = name.charAt(0).toUpperCase() + name.slice(1);
+
 
     const existingCategory = await Category.findOne({name})
 
@@ -160,7 +164,10 @@ const getCategory = async (req,res,next)=>{
 const addCuisine = async (req,res,next)=>{
     try {
       const {name} = req.body
-  
+      
+      // Capitalize the first letter of the name
+      name = name.charAt(0).toUpperCase() + name.slice(1);
+
       const existingCusine = await CuisineType.findOne({name})
   
       if (existingCusine) {
@@ -249,14 +256,18 @@ const foodItemUnBlock = async (req,res,next)=>{
 const updateCategory = async (req,res,next)=>{
   try {
     const {id} = req.params
-    const {name} = req.body
+    let {name} = req.body
+
+    // Capitalize the first letter of the name
+    name = name.charAt(0).toUpperCase() + name.slice(1);
+
 
     const update = await Category.findByIdAndUpdate(id,{
       name
     },{new:true})
 
     if (update) {
-      res.status(201).json({sucess:true, message:'Sucessfully Updated'})
+      res.status(201).json({sucess:true,update, message:'Sucessfully Updated'})
     }
   } catch (error) {
     console.log(error)
@@ -264,9 +275,48 @@ const updateCategory = async (req,res,next)=>{
   }
 }
 
+const categoryBlock = (req,res,next)=>{
+  blockUnblockHelper(req,res,next,true, Category)
+}
+
+const categoryUnBlock = (req,res,next)=>{
+  blockUnblockHelper(req,res,next,false, Category)
+}
+
+// update cuisine
+const updatedCuisine = async (req,res,next)=>{
+  try {
+    const {id} = req.params
+    const {name} = req.body
+
+    // Capitalize the first letter of the name
+    name = name.charAt(0).toUpperCase() + name.slice(1);
+
+    const update = await CuisineType.findByIdAndUpdate(id,{
+      name
+    },{new:true})
+
+    if (update) {
+      res.status(201).json({sucess:true,update, message:'Sucessfully Updated'})
+    }
+  } catch (error) {
+    console.log(error)
+    next(error)
+  }
+}
+
+const cuisineBlock = (req,res,next)=>{
+  blockUnblockHelper(req,res,next,true, CuisineType)
+}
+
+const cuisineUnBlock = (req,res,next)=>{
+  blockUnblockHelper(req,res,next,false, CuisineType)
+}
+
 
 export {
   hotelRegister, hotelLogin, addFoodItem,getFoodItem,
-  addCategory,getCategory, addCuisine, getCuisine,UpdateFoodItem,
-  foodItemBlock,foodItemUnBlock,updateCategory
+  addCategory, getCategory, addCuisine, getCuisine, UpdateFoodItem,
+  foodItemBlock, foodItemUnBlock, updateCategory,categoryBlock, categoryUnBlock,
+  updatedCuisine, cuisineBlock, cuisineUnBlock
 }

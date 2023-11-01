@@ -3,7 +3,7 @@ import React from 'react'
 const FoodList = () => {
     const foods =[]
   return (
-    <div>
+    <main className='main-container'>
       <div className="flex justify-between items-start">
         <p className="text-4xl mb-8 font-extrabold text-yellow-950">Foods</p>
       </div>
@@ -69,7 +69,7 @@ const FoodList = () => {
           </tbody>
         </table>
       </div>
-    </div>
+    </main>
   )
 }
 

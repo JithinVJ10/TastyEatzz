@@ -11,6 +11,7 @@ import DropdownButton from './DropDown'
 import { useDispatch, useSelector } from 'react-redux'
 import { AdminLogout } from '../../Redux/slice/adminSlice'
 import { ADMIN_DASHBOARD, ADMIN_LOGIN } from '../../RoutePaths/RoutePaths'
+import { BsJustify } from 'react-icons/bs'
 
 
 const callsToAction = [
@@ -42,12 +43,15 @@ export default function Header(props) {
   }
 
   return (
-    <header className="bg-white">
-      <nav className="mx-auto flex max-w-7xl items-center justify-between p-6 lg:px-8" aria-label="Global">
+    <header className="header bg-white">
+      <nav className="mx-auto flex max-w-7xl justify-between p-6 lg:px-8" aria-label="Global">
+      <div className='menu-icon'>
+            <BsJustify className='icon' onClick={props.OpenSidebar}/>
+        </div>
         <div className="flex lg:flex-1">
           <Link to={ADMIN_DASHBOARD}>
           <div className="-m-1.5 p-1.5 flex">
-          <h1 className='text-5xl font-extrabold font-mono'>Admin Panel</h1>
+          <h1 className=' text-2xl md:text-5xl font-extrabold'>Admin Panel</h1>
           </div>
           </Link>
         </div>

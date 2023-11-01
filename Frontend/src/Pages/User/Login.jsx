@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { setUserInfo } from '../../Redux/slice/userSlice'
 import {toast, ToastContainer} from 'react-toastify'
 import { GoogleLogin } from '@react-oauth/google';
-import { LOGGED_IN_HOME, USER_SIGNUP } from '../../RoutePaths/RoutePaths'
+import { LOGGED_IN_HOME, USER_OTP_LOGIN, USER_SIGNUP } from '../../RoutePaths/RoutePaths'
 
 
 const Login = () => {
@@ -55,7 +55,8 @@ const Login = () => {
 
     const submitHandler = async(e)=>{
         e.preventDefault()
-        if (email ==='') {
+        const spaceRegex = /^\S*$/;
+        if (email ==='' && !spaceRegex.test(email)) {
             setError('Fill Email field')
             setTimeout(()=>{
                 setError('')
@@ -63,7 +64,7 @@ const Login = () => {
 
             return
         }
-        if (password ==='') {
+        if (password ==='' && !spaceRegex.test(password)) {
             setError('Fill password field')
             setTimeout(()=>{
                 setError('')
@@ -135,6 +136,7 @@ const Login = () => {
                             value={email}
                             onChange={handlerEmail}
                             id='email'
+                            required
                         />
                     </div>
                     <p className='text-red-500 text-center'>{isValid}</p>
@@ -152,6 +154,7 @@ const Login = () => {
                             value={password}
                             onChange={(e)=> setPassword(e.target.value)}
                             id='password'
+                            required
                         />
                     </div>
                     <p className='text-red-500 text-center'>{err}</p>
@@ -177,6 +180,13 @@ const Login = () => {
                 <div className='mt-3 flex justify-center'>
                     
                     <GoogleLogin onSuccess={responseMessage} onError={errorMessage} />
+                </div>
+                <div className='mt-3 flex justify-center'>
+                <Link to={USER_OTP_LOGIN}>
+                <button className="w-full px-4 py-2 tracking-wide text-white transition-colors duration-200 transform bg-purple-700 rounded-md hover:bg-purple-600 focus:outline-none focus:bg-purple-600">
+                    OTP Login
+                </button>
+                </Link>  
                 </div>
             </div>
         </div>

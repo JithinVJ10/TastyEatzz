@@ -226,7 +226,7 @@ const AddFoodItem = () => {
               <div className='p-1'>
                   <label htmlFor='availableFrom' className=''>Available From</label>
                   <input 
-                  type="time"
+                  type="date"
                   className='block w-full px-3 py-1 mt-1 text-purple-700 bg-white border rounded-md focus:border-purple-400 focus:ring-purple-300 focus:outline-none focus:ring focus:ring-opacity-40'
                   value={foodData.availableFrom}
                   name='availableFrom'
@@ -238,7 +238,7 @@ const AddFoodItem = () => {
               <div className='p-1'>
                   <label htmlFor='availableTo' className=''>Available To</label>
                   <input 
-                  type="time"
+                  type="date"
                   className='block w-full px-3 py-1 mt-1 text-purple-700 bg-white border rounded-md focus:border-purple-400 focus:ring-purple-300 focus:outline-none focus:ring focus:ring-opacity-40'
                   value={foodData.availableTo}
                   name='availableTo'

@@ -9,9 +9,8 @@ function Taat() {
         });
     };
     return (
-        <div>
-            <button onClick={showToastMessage}>Notify</button>
-            <ToastContainer />
+        <div className='w-[100%] bg-slate-400'>
+           sadfa
         </div>
     );
 }

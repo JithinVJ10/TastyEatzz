@@ -11,16 +11,19 @@ import { axiosInstance } from "../../../api/axiosInstance";
   export function SimpleCard(props) {
     const [products,setProducts] = useState([])
 
-    useEffect(()=>{
-      axiosInstance.get('/hotel/getFoodItem').then((res)=>{
-        if (res.data.food) {
-          setProducts(res.data.food)
-          
-        }
-      }).catch((error)=>{
-        console.log(error);
-      })
-    },[])
+    useEffect(() => {
+      axiosInstance.get('/hotel/getFoodItem')
+        .then((res) => {
+          if (res.data.food) {
+            // Filter out the unblocked food items
+            const unblockedFood = res.data.food.filter(item => !item.isBlocked);
+            setProducts(unblockedFood);
+          }
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    }, []);
     // const products = [
     //   {
     //     name: 'Ramachandra Parlour',

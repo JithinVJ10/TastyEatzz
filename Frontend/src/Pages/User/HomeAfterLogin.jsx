@@ -15,27 +15,27 @@ const HomeAfterLogin = () => {
   const dispatch = useDispatch()
 
   return (
-    <div className='min-h-screen flex flex-col'>
+    <div className='min-h-screen flex flex-col w-full'>
         <Header />
         <HeroMain/>
-        <div className='mt-20'>
+        <div className='mt-20 px-20'>
           <p className='font-bold text-3xl'>Best offers for you</p>
         </div>
-        <div className='flex justify-between mt-10'>
-          <OfferCard title={'Get up to 60%'} text={'off on your next order'} bgColor={'bg-red-400'}/>
-          <OfferCard title={'Get 15% off'} text={'off on your next order'} bgColor={'bg-lime-500'}/>
-          <OfferCard title={'Get 10% off'} text={'off on your next order'} bgColor={'bg-cyan-700'}/>
+        <div className='flex flex-col md:flex-row bg-slate-300 px-20 w-full mt-10'>
+          <OfferCard title={'Get up to 60%'} text={'Off on your next order'} bgColor={'bg-red-400'}/>
+          <OfferCard title={'Get 15% off'} text={'Off for Biriyani'} bgColor={'bg-lime-500'}/>
+          <OfferCard title={'Get 10% off'} text={'Off on your next order'} bgColor={'bg-cyan-700'}/>
         </div>
-        <div className='mt-20 flex'>
+        <div className='mt-20 flex px-20'>
           <CategoryRow category={'Pizza'} />
           <CategoryRow category={'Bugger'}/>
           <CategoryRow category={'Biriyani'}/>
           <CategoryRow category={'Meals'}/>
         </div>
-        <div>
+        <div className='px-20'>
           <ProductCard title={'Polular Food Items'} />
         </div>
-        <div>
+        <div className='px-20'>
           <ProductCard title={'South Indian Food Items'}/>
         </div>
         <div className="">

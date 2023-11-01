@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { axiosInstance } from "../../api/axiosInstance";
+import { adminAxiosInstance } from "../../api/axiosInstance";
 import swal from 'sweetalert'
 
 const UserList = () => {
   const [users, setUsers] = useState([]);
   useEffect(() => {
-    axiosInstance.get("/admin/getUser").then((res) => {
+    adminAxiosInstance.get("/getUser").then((res) => {
       if (res.data.user) {
         setUsers(res.data.user);
       }
@@ -36,7 +36,7 @@ const UserList = () => {
       let updatedUsers = [...users]; // Create a copy of the current users array
   
       if (action === 'block') {
-        const res = await axiosInstance.put(`/admin/blockUser/${userId}`);
+        const res = await adminAxiosInstance.put(`/blockUser/${userId}`);
         if (res.data.success) {
           swal(res.data.message, {
             icon: "success",
@@ -54,7 +54,7 @@ const UserList = () => {
       }
   
       if (action === 'unblock') {
-        const res = await axiosInstance.put(`/admin/unblockUser/${userId}`);
+        const res = await adminAxiosInstance.put(`/unblockUser/${userId}`);
         if (res.data.success) {
           swal(res.data.message, {
             icon: "success",
@@ -78,14 +78,10 @@ const UserList = () => {
   
 
   return (
-    <div>
+    <main className="main-container">
       <div className="flex justify-between items-start">
         <p className="text-5xl mb-8 font-extrabold">Users</p>
-        <div className="">
-          <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mr-3">
-            Add User
-          </button>
-        </div>
+
       </div>
 
       <div className="overflow-x-auto">
@@ -141,7 +137,7 @@ const UserList = () => {
           </tbody>
         </table>
       </div>
-    </div>
+    </main>
   );
 };
 

@@ -108,6 +108,7 @@ const UserOTPLogin = () => {
                             onChange={(e)=>setPhone(e.target.value)}
                             id='phone'
                             maxLength={10}
+                            required
                         />
                     </div>
                     <p className='text-red-500 text-center'>{isValid}</p>

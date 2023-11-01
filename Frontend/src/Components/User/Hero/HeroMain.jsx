@@ -4,9 +4,9 @@ import React from 'react'
 const HeroMain = () => {
   return (
     <>
-    <div className='flex mt-20'>
+    <div className='flex flex-col lg:flex-row px-10 xl:px-40 mt-20'>
 
-     <div>
+     <div className=''>
 
       <div className='me-8'>
         <h1 className='font-bold text-7xl'>Premium <span className='text-orange-500'>quality</span></h1>
@@ -34,7 +34,7 @@ const HeroMain = () => {
 
      </div>
      <div>
-        <img className='rounded-2xl' src="https://img.freepik.com/free-photo/top-view-meals-tasty-yummy-different-pastries-dishes-brown-surface_140725-14554.jpg?w=2000" alt="" width={350} />
+        <img className='rounded-2xl w-[350px] lg:h-auto ' src="https://img.freepik.com/free-photo/top-view-meals-tasty-yummy-different-pastries-dishes-brown-surface_140725-14554.jpg?w=2000" alt=""  />
      </div>
     </div>
 

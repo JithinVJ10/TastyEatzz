@@ -102,6 +102,7 @@ const UserEnterOTP = () => {
                             value={verificationCode}
                             onChange={(e)=>setVerificationCode(e.target.value)}
                             id='verificationCode'
+                            required
                         />
                     </div>
                     <p className='text-red-500 text-center'>{isValid}</p>
