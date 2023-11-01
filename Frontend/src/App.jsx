@@ -15,6 +15,7 @@ import UserProfile from './Pages/User/UserProfile'
 import UserAddress from './Pages/User/Profile/userAddress'
 import UserOrder from './Pages/User/Profile/UserOrder'
 import EditProfile from './Pages/User/Profile/EditProfile'
+import CartPage from './Pages/User/Cart/CartPage'
 
 //Admin
 import AdminLogin from './Pages/Admin/AdminLogin'
@@ -74,6 +75,7 @@ function App() {
         <Route path={RoutePaths.USER_ADDRESS} element={<UserAddress />} />
         <Route path={RoutePaths.USER_ORDER} element={<UserOrder />} />
         <Route path={RoutePaths.USER_EDIT_PROFILE} element={<EditProfile />} />
+        <Route path={RoutePaths.SHOPPING_CART} element={<CartPage />} />
       </Route>
       <Route path='/Taat' element={<Taat/>} />
 
