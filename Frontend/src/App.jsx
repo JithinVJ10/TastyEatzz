@@ -52,6 +52,7 @@ import HotelCusine from './Pages/Hotel/HotelCusine'
 import AddCusine from './Pages/Hotel/AddCusine'
 import UserEnterOTP from './Pages/User/OTPLogin/UserEnterOTP'
 import AdminHotel from './Pages/Admin/AdminHotel'
+import SingleFoodPage from './Pages/User/SingleFoodItem/SingleFoodPage'
 
 
 function App() {
@@ -76,6 +77,7 @@ function App() {
         <Route path={RoutePaths.USER_ORDER} element={<UserOrder />} />
         <Route path={RoutePaths.USER_EDIT_PROFILE} element={<EditProfile />} />
         <Route path={RoutePaths.SHOPPING_CART} element={<CartPage />} />
+        <Route path={RoutePaths.SINGLE_FOOD} element={<SingleFoodPage />} />
       </Route>
       <Route path='/Taat' element={<Taat/>} />
 

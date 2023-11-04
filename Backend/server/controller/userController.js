@@ -1,4 +1,6 @@
 import User from "../model/userModel.js";
+import Food from '../model/foodModel.js'
+import Cart from "../model/cartModel.js";
 import jwt from 'jsonwebtoken'
 import generateToken from "../utils/generateToken.js";
 
@@ -159,12 +161,10 @@ const UpdateUserDetials = async (req,res,next)=>{
     );
 
     if (user) {
-      console.log('sssssssssssssss');
       res.status(200).json({ message:"Successfully Updated", 
         userData:{_id: user._id,username,email,phone}
      });
     } else {
-      console.log('eeeeeeeeeeeeeeee');
       res.status(500).json({ message: "Server Error" });
     }
   } catch (error) {
@@ -173,6 +173,134 @@ const UpdateUserDetials = async (req,res,next)=>{
   }
 }
 
+// get Single product
+
+const getSingleProduct = async (req,res,next)=>{
+  try {
+    const {id} = req.params
+
+    const product = await Food.findById(id).populate('hotelName').populate('cuisineType').populate('category')
+    if (product) {
+      res.status(201).json({message:'Sucessfully fetch food',product})
+    }else{
+      console.log('food not found');
+    }
+  } catch (error) {
+    console.log(error)
+    next(error)
+  }
+}
+
+// Add To cart
+
+const addTocart = async (req,res,next)=>{
+  try {
+    const productId = req.params.id
+    const {userCred ,quantity} = req.body
+    const userId = userCred._id
+
+    let userCart = await Cart.findOne({userId:userId})
+
+    if (!userCart) {
+      const newCart = new Cart({
+        userId:userId, products:[]
+      })
+      await newCart.save()
+      userCart = newCart
+    }
+
+    const productIndex = userCart.products.findIndex(
+      (product) => product.productId == productId
+
+    );
+
+    if (productIndex === -1) {
+      // If the product is not in the cart, add it
+      userCart.products.push({ productId, quantity :quantity });
+
+  }else {
+    userCart.products[productIndex].quantity +=quantity
+  }
 
 
-export {userRegister, userLogin, googleSignup, googleLogin, UpdateUserDetials}
+  await userCart.save();
+
+  res.status(201).json({ message: 'food added to cart successfully', success :true });
+
+  } catch (error) {
+    console.log(error);
+    next(error)
+  }
+}
+
+// Get User Cart 
+
+const getCart = async (req,res,next)=>{
+  try {
+    const userId = req.params.id
+
+    const userCart = await Cart.findOne({userId:userId}).populate('products.productId').populate('products.quantity').populate('products.productId.hotelName')
+
+    if (userCart) {
+      res.status(201).json({message:"successsfully fetched", userCart})
+    }
+  } catch (error) {
+    console.log(error)
+    next(error)
+  }
+}
+
+// quantityIncrease
+
+const quantityIncrease = async (req,res,next)=>{
+  try {
+    const {foodId, userId} = req.body
+
+    const cart = await Cart.findOne({userId: userId}).populate("products.productId")
+
+    let cartIndex = cart.products.findIndex(items=> items.productId.equals(foodId))
+
+    cart.products[cartIndex].quantity +=1
+
+    await cart.save()
+
+    res.status(201).json({
+      success:true,
+      message:"Quantity updated",
+  })
+
+  } catch (error) {
+    console.log(error)
+    next(error)
+  }
+}
+
+const quantityDecrease = async (req,res,next)=>{
+  try {
+    const {foodId, userId} = req.body
+
+    const cart = await Cart.findOne({userId: userId}).populate("products.productId")
+
+    let cartIndex = cart.products.findIndex(items=> items.productId.equals(foodId))
+
+    cart.products[cartIndex].quantity -=1
+
+    await cart.save()
+
+    res.status(201).json({
+      success:true,
+      message:"Quantity updated",
+  })
+    
+  } catch (error) {
+    console.log(error)
+    next(error)
+  }
+}
+
+
+
+export {
+  userRegister, userLogin, googleSignup, googleLogin, UpdateUserDetials,
+  getSingleProduct,addTocart,getCart, quantityIncrease, quantityDecrease
+}

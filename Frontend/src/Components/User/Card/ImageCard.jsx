@@ -7,6 +7,8 @@ import {
   } from "@material-tailwind/react";
 import { useEffect, useState } from "react";
 import { axiosInstance } from "../../../api/axiosInstance";
+import { Link } from "react-router-dom";
+import { SINGLE_FOOD } from "../../../RoutePaths/RoutePaths";
    
   export function SimpleCard(props) {
     const [products,setProducts] = useState([])
@@ -23,7 +25,7 @@ import { axiosInstance } from "../../../api/axiosInstance";
         .catch((error) => {
           console.log(error);
         });
-    }, []);
+    }, [products]);
     // const products = [
     //   {
     //     name: 'Ramachandra Parlour',
@@ -92,23 +94,25 @@ import { axiosInstance } from "../../../api/axiosInstance";
       {
         products.map((product)=>{
           return (
+          <Link to={`${SINGLE_FOOD.replace(':id', product._id)}`}>
 
-          <Card className="min-w-fit drop-shadow-lg ms-2 mb-2 mt-2  ">
-            <CardBody className="">
-            <img
-              src={product.imageUrl}
-              alt="card-image"
-              width={200}
-            />
-              <Typography variant="p" color="blue-gray" className="mb-2">
-              {product.name}
-              </Typography>
-              <Typography>
-                {product.cuisineType.name}
-              </Typography>
-            </CardBody>
+            <Card className="min-w-fit drop-shadow-lg ms-2 mb-2 mt-2  ">
+              <CardBody className="">
+              <img
+                src={product.imageUrl}
+                alt="card-image"
+                width={200}
+              />
+                <Typography variant="p" color="blue-gray" className="mb-2">
+                {product.name}
+                </Typography>
+                <Typography>
+                  {product.cuisineType.name}
+                </Typography>
+              </CardBody>
 
-          </Card>
+            </Card>
+          </Link>
           )
         })
       }
