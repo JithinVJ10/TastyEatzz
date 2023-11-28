@@ -25,7 +25,7 @@ import { SINGLE_FOOD } from "../../../RoutePaths/RoutePaths";
         .catch((error) => {
           console.log(error);
         });
-    }, [products]);
+    }, []);
     // const products = [
     //   {
     //     name: 'Ramachandra Parlour',

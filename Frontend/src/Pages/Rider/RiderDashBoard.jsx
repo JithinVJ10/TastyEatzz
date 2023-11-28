@@ -11,8 +11,12 @@ const RiderDashBoard = () => {
   return (
     <>
       <Header/>
-      <div className='ms-5 mt-20'>
+      <div className='ms-5 mt-20 px-28'>
         <DashboardProfile/>
+      </div>
+
+      <div className='flex justify-center mt-6'>
+        <CurrentOrder/>
       </div>
 
       <div className='flex justify-around mt-16'>
@@ -24,12 +28,10 @@ const RiderDashBoard = () => {
       <DataCard title={'5'} text={"total Hour’s worked today"} bgColor={'bg-blue-400'}/>
       <DataCard title={'2000₹'} text={"Wallet"} bgColor={'bg-lime-500'}/>
       </div>
-      <div className='mt-14'>
+      <div className='mt-14 px-14'>
         <DeliveryCancel/>
       </div>
-      <div className='flex justify-center'>
-        <CurrentOrder/>
-      </div>
+      
       <div>
         <Footer/>
       </div>

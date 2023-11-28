@@ -14,7 +14,9 @@ export const USER_PAYMENT = '/UserPayment'
 export const USER_WISHLIST = '/UserWishlist'
 export const SINGLE_FOOD = '/foodDetails/:id'
 export const SHOPPING_CART = '/shoppingCart'
-export const CHECKOUT_PAGE = '/ChekoutPage'
+export const CHECKOUT_ADDRESS = '/CheckoutAddress'
+export const CHECKOUT_PAGE = '/ChekoutPage/:id'
+export const ORDER_PLACED = '/orderPlaced'
 
 
 // admin
@@ -50,3 +52,4 @@ export const HOTEL_CATEGORY ='/HotelCategory'
 export const HOTEL_CUSINE = '/hotelCusine'
 export const HOTEL_ADD_CATEGORY ='/HotelAddCategory'
 export const HOTEL_ADD_CUSINE = '/hotelAddCusine'
+export const HOTEL_ORDER = '/hotelOrders'

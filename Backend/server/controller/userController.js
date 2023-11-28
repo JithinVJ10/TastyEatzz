@@ -3,6 +3,10 @@ import Food from '../model/foodModel.js'
 import Cart from "../model/cartModel.js";
 import jwt from 'jsonwebtoken'
 import generateToken from "../utils/generateToken.js";
+import Hotel from "../model/hotelModel.js";
+import Order from "../model/orderModel.js";
+import Rider from '../model/riderModel.js'
+import { Category } from "../model/menuModel.js";
 
 // user register /admin/userRegister
 const userRegister = async (req,res,next)=>{
@@ -79,6 +83,22 @@ const userLogin = async (req,res,next)=>{
         next(error)
     }
     
+}
+
+// check user Blocked or not 
+const getLoggedInUser = async (req,res,next)=>{
+  try {
+    const {id} = req.params
+
+    const userData = await User.findOne({_id:id})
+
+    if (userData) {
+      res.status(201).json({userData,message:'successfully fetched'})
+    }
+  } catch (error) {
+    console.log(error)
+    next(error)
+  }
 }
 
 // google Sign up
@@ -173,6 +193,125 @@ const UpdateUserDetials = async (req,res,next)=>{
   }
 }
 
+// add adddress
+
+const addUserAddress = async (req,res, next)=>{
+  try {
+    const {id} = req.params
+    const {addressData} = req.body
+
+    const user = await User.findOne({_id:id})
+
+    if (user) {
+      user.address.push({
+        name:addressData.name,
+        address:addressData.address,
+        mobile:addressData.mobile,
+        city:addressData.city,
+        pincode:addressData.pincode,
+        state:addressData.state,
+      })
+
+      await user.save()
+
+      res.status(200).json({success:true,message:"Successfully added address"})
+    }else{
+      res.status(400)
+        throw new Error("User not found")
+    }
+
+  } catch (error) {
+    console.log(error)
+    next(error)
+  }
+}
+
+// get address
+const getAddress = async(req,res,next)=>{
+  try {
+    const {id} = req.params
+
+    const user = await User.findOne({_id:id})
+
+    if(user){
+      let userAddress = user.address
+
+      res.status(201).json({success:true,message:"Successfully fetched address", userAddress})
+    }else{
+      res.status(400)
+      throw new Error("User not found")
+    }
+
+  } catch (error) {
+    console.log(error)
+    next(error)
+  }
+}
+
+//Update address
+
+const updateAddress = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    const { addressData } = req.body;
+    console.log("ID:", addressData.addressId);
+
+    const user = await User.findOne({ _id: id });
+
+    if (!user) {
+      res.status(400);
+      throw new Error("User not found");
+    }
+
+    // Use findIndex to get the index of the address in the array
+    const addressIndex = user.address.findIndex((addr) => String(addr._id) === String(addressData.addressId));
+
+    if (addressIndex !== -1) {
+      // Update the address using the index
+      user.address[addressIndex].name = addressData.name;
+      user.address[addressIndex].address = addressData.address;
+      user.address[addressIndex].mobile = addressData.mobile;
+      user.address[addressIndex].city = addressData.city;
+      user.address[addressIndex].pincode = addressData.pincode;
+      user.address[addressIndex].state = addressData.state;
+
+      await user.save(); // Save the updated user document
+
+      res.status(201).json({ success: true, message: 'Successfully Updated' });
+    } else {
+      res.status(400);
+      throw new Error("Address not found");
+    }
+  } catch (error) {
+    console.error(error);
+    next(error); 
+  }
+};
+
+// getSelectedAddress
+
+const getSelectedAddress = async (req,res,next)=>{
+  try {
+    const {id} = req.params
+    
+    const user = await User.findOne(
+      { _id: id }
+    )
+    
+
+    if (!user) {
+      res.status(400);
+      throw new Error("User not found");
+    }
+    let userAddress = user.address
+    res.status(201).json({success:true,message:"Sucessfully Fetched",userAddress})
+  } catch (error) {
+    console.log(error)
+    next(error)
+  }
+}
+
+
 // get Single product
 
 const getSingleProduct = async (req,res,next)=>{
@@ -229,6 +368,21 @@ const addTocart = async (req,res,next)=>{
 
   } catch (error) {
     console.log(error);
+    next(error)
+  }
+}
+
+// get Category
+
+const getCategory = async (req,res,next)=>{
+  try {
+    const category = await Category.find()
+
+    if (category) {
+      res.status(200).json({success:true,message:"successfully fatched",category})
+    }
+  } catch (error) {
+    console.log(error)
     next(error)
   }
 }
@@ -298,9 +452,139 @@ const quantityDecrease = async (req,res,next)=>{
   }
 }
 
+// remove item in the cart
+
+const deleteCartItem = async(req,res,next)=>{
+  try {
+    const {foodId, userId} = req.body
+
+    console.log(foodId,"ss",userId)
+    const itemDeleted = await Cart.findOneAndUpdate(
+      {userId: userId},
+      {$pull:{ products:{productId: foodId}}},
+      {new: true}
+    )
+      console.log(itemDeleted)
+    if(itemDeleted){
+      console.log("gsgsgsg")
+      res.status(201).json({
+        success:true,
+        message:"Removed item",
+      })
+    }else{
+        res.json({
+          success:false,
+          message:"failed to Remove item",
+        })
+    }
+
+  } catch (error) {
+    console.log(error)
+    next(error)
+  }
+}
+
+// place order
+
+const placeOrder = async(req,res,next)=>{
+  try {
+    const {userId,cartItems,address,subTotal,selectedPayment} = req.body
+
+    console.log(selectedPayment)
+    console.log("Helloo",cartItems.products[0].productId.hotelName)
+
+    const items = cartItems.products.map(item =>{
+      const product = item.productId;
+      const quantity = item.quantity;
+      const price = product.price;
+      const hotelId = product.hotelName
+
+      if (!price) {
+        throw new Error("Product price is required");
+      }
+      if (!product) {
+        throw new Error("Product is required");
+      }
+
+      return {
+        product: product._id,
+        quantity: quantity,
+        price: price,
+        hotelId: hotelId,
+      }
+      
+    })
+    
+
+    const hotelIds = items.map((item) => item.hotelId);
+
+    // Assuming 'Hotel' is your mongoose model
+    const hotels = await Hotel.find({ _id: { $in: hotelIds } });
+    if (!hotels) {
+      throw new Error("hotels not found");
+    }
+    const hotelAddresses = hotels.map((hotel) => hotel.address);
+
+    if (selectedPayment === "cashondelivery") {
+      const order = new Order({
+        userId:userId,
+        items:items,
+        total:subTotal,
+        status:"Pending",
+        paymentMethod:selectedPayment,
+        pickUpAddress:hotelAddresses,
+        DeliveryAddress:address,
+      })
+
+      await order.save()
+    }else{
+      return res.json({success:false,message:"This option unavailable now"})
+    }
+    
+    const cart = await Cart.deleteOne({userId:userId})
+    res.status(201).json({success:true,message:"Successfully placed"})
+
+  } catch (error) {
+    console.log(error)
+    next(error)
+  }
+
+}
+
+const getOrders = async (req,res,next)=>{
+  try {
+    const {id} = req.params
+
+    const orders = await Order.find({userId:id}).populate('items.product').populate('items.hotelId').populate('riderDetails')
+
+    // console.log(orders.items[0].hotelId.hotelName)
+
+    const orderDetails = orders.map((order) => {
+      return {
+        _id: order._id,
+        userId:order.userId,
+        items:order.items,
+        total:order.total,
+        riderDetails:order.riderDetails,
+        status:order.status,
+        paymentMethod:order.paymentMethod,
+        pickUpAddress:order.pickUpAddress,
+        DeliveryAddress:order.DeliveryAddress,
+      };
+    });
+
+    res.status(201).json({success:true,orderDetails})
+  } catch (error) {
+    console.log(error)
+    next(error)
+  }
+}
+
 
 
 export {
   userRegister, userLogin, googleSignup, googleLogin, UpdateUserDetials,
-  getSingleProduct,addTocart,getCart, quantityIncrease, quantityDecrease
+  getSingleProduct,addTocart,getCart, quantityIncrease, quantityDecrease,
+  getLoggedInUser, addUserAddress, getAddress, updateAddress, getSelectedAddress,
+  placeOrder, deleteCartItem, getCategory, getOrders
 }

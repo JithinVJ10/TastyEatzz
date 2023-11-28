@@ -1,5 +1,6 @@
 import Rider from '../model/riderModel.js'
 import generateToken from '../utils/generateToken.js';
+import Order from '../model/orderModel.js'
 
 
 // Rider registeration
@@ -167,4 +168,51 @@ const editRiderProfile = async (req,res,next)=>{
   }
 }
 
-export {riderRegister, riderLogin, riderVehicleDetails, riderBankDetails, editRiderProfile}
+const availableOrders = async (req,res,next)=>{
+  try {
+    const orders = await Order.find({status:'Pending'}).populate('items.product').populate('items.hotelId').populate('userId')
+
+    if (orders) {
+      res.json({success:true,orders})
+    }
+  } catch (error) {
+    console.log(error)
+    next(error)
+  }
+}
+
+const takeOrder = async (req,res,next)=>{
+  try {
+    const {id}= req.params
+    const {orderId} = req.body
+
+    console.log(orderId)
+
+    const rider = await Rider.findOne({_id:id})
+
+    if (!rider) {
+      throw new Error("Rider not found")
+    }
+
+    const order = await Order.findByIdAndUpdate(orderId,{
+      riderDetails:rider._id,
+      status:"onDelivery",
+    },{new:true})
+
+    if (order) {
+      res.status(201).json({success:true,message:"Order taken"})
+    }
+
+    
+
+
+  } catch (error) {
+    console.log(error)
+    next(error)
+  }
+}
+
+export {riderRegister, riderLogin, riderVehicleDetails, riderBankDetails, editRiderProfile,
+  availableOrders, takeOrder
+  
+}

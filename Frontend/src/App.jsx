@@ -16,6 +16,10 @@ import UserAddress from './Pages/User/Profile/userAddress'
 import UserOrder from './Pages/User/Profile/UserOrder'
 import EditProfile from './Pages/User/Profile/EditProfile'
 import CartPage from './Pages/User/Cart/CartPage'
+import SingleFoodPage from './Pages/User/SingleFoodItem/SingleFoodPage'
+import CheckoutPage from './Pages/User/Checkout/CheckoutPage'
+import CheckoutAddressPage from './Pages/User/Address/checkoutAddressPage'
+import UserEnterOTP from './Pages/User/OTPLogin/UserEnterOTP'
 
 //Admin
 import AdminLogin from './Pages/Admin/AdminLogin'
@@ -24,6 +28,7 @@ import AdminPrivate from './Components/Admin/AdminPrivate'
 import AdminUser from './Pages/Admin/AdminUser'
 import AdminRider from './Pages/Admin/AdminRider'
 import AdminFood from './Pages/Admin/AdminFood'
+import AdminHotel from './Pages/Admin/AdminHotel'
 
 
 
@@ -50,9 +55,11 @@ import HotelCategory from './Pages/Hotel/HotelCategory'
 import AddCategory from './Pages/Hotel/AddCategory'
 import HotelCusine from './Pages/Hotel/HotelCusine'
 import AddCusine from './Pages/Hotel/AddCusine'
-import UserEnterOTP from './Pages/User/OTPLogin/UserEnterOTP'
-import AdminHotel from './Pages/Admin/AdminHotel'
-import SingleFoodPage from './Pages/User/SingleFoodItem/SingleFoodPage'
+import OrderPlaced from './Pages/User/Order/OrderPlaced'
+import HotelOrders from './Pages/Hotel/HotelOrders'
+
+
+
 
 
 function App() {
@@ -78,6 +85,9 @@ function App() {
         <Route path={RoutePaths.USER_EDIT_PROFILE} element={<EditProfile />} />
         <Route path={RoutePaths.SHOPPING_CART} element={<CartPage />} />
         <Route path={RoutePaths.SINGLE_FOOD} element={<SingleFoodPage />} />
+        <Route path={RoutePaths.CHECKOUT_ADDRESS} element={<CheckoutAddressPage />} />
+        <Route path={RoutePaths.CHECKOUT_PAGE} element={<CheckoutPage />} />
+        <Route path={RoutePaths.ORDER_PLACED} element={<OrderPlaced />} />
       </Route>
       <Route path='/Taat' element={<Taat/>} />
 
@@ -116,6 +126,7 @@ function App() {
         <Route path={RoutePaths.HOTEL_ADD_CATEGORY} element={<AddCategory/>} />
         <Route path={RoutePaths.HOTEL_CUSINE} element={<HotelCusine/>} />
         <Route path={RoutePaths.HOTEL_ADD_CUSINE} element={<AddCusine/>} />
+        <Route path={RoutePaths.HOTEL_ORDER} element={<HotelOrders/>} />
 
       </Route>
 

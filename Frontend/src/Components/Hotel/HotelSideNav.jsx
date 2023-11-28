@@ -2,7 +2,7 @@ import React from 'react'
 import { BsCardChecklist } from 'react-icons/bs'
 import { FaHamburger, FaTable, FaUser } from 'react-icons/fa'
 import { Link } from 'react-router-dom'
-import { HOTEL_DASHBOARD, HOTEL_FOOD } from '../../RoutePaths/RoutePaths'
+import { HOTEL_DASHBOARD, HOTEL_FOOD, HOTEL_ORDER } from '../../RoutePaths/RoutePaths'
 import { IoMdSettings } from 'react-icons/io'
 
 const HotelSideNav = ({openSidebarToggle, OpenSidebar}) => {
@@ -37,8 +37,10 @@ const HotelSideNav = ({openSidebarToggle, OpenSidebar}) => {
              </Link>
           </li>
           <li className='sidebar-list-item'>
-          <BsCardChecklist className='text-2xl'/>
-            <a className='hidden sm:block pl-2'>Orders</a>
+            <BsCardChecklist className='text-2xl'/>
+            <Link to={HOTEL_ORDER}>
+              <a className='hidden sm:block pl-2'>Orders</a>
+            </Link>
           </li>
           <li className='sidebar-list-item'>
           <IoMdSettings className='text-2xl'/>

@@ -26,6 +26,16 @@ const userSchema = mongoose.Schema(
       photo:[ {
         type: String,
       }],
+      address:[
+        {
+          name:String,
+          address:String,
+          mobile:Number,
+          city:String,
+          pincode:Number,
+          state:String,
+      }
+      ],
     },
     {
       timestamps: true,

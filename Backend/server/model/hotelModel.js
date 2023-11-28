@@ -21,8 +21,8 @@ const HotelSchema = new mongoose.Schema(
         required: true,
       },
       address: {
-        type: String,
-    
+        address:String,
+        pincode:Number,
       },
       isBlocked: {
         type: Boolean,

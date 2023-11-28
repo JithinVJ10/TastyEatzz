@@ -30,18 +30,17 @@ const AddCategory = () => {
                     navigate(HOTEL_CATEGORY)
                 },2000)
 
-            }else{
-                console.log('errorrr');
             }
         } catch (error) {
-            console.log(error.response?.data?.message);
-            toast.error(error.response?.data?.message)
+            console.log(error?.response?.data?.message);
+            toast.error(error?.response?.data?.message)
         }
 
     }
   return (
     <>
     <div className='grid-container'>
+    <ToastContainer/>
     <HotelSideNav openSidebarToggle={openSidebarToggle} OpenSidebar={OpenSidebar}/>
     <HotelHeader OpenSidebar={OpenSidebar}/>
     <main className='main-container'>

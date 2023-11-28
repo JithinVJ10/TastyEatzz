@@ -1,9 +1,9 @@
 import Hotel from "../model/hotelModel.js"
 import Food from "../model/foodModel.js"
-
 import {Category, CuisineType } from '../model/menuModel.js'
 import { blockUnblockHelper } from "../utils/blockUnblockHelper.js"
 import generateToken from "../utils/generateToken.js"
+import Order from "../model/orderModel.js"
 
 
 
@@ -70,11 +70,11 @@ const hotelLogin = async (req,res, next )=>{
 
 const addFoodItem = async (req,res,next)=>{
   try {
-    const {name,category,cuisineType,description,price,imageUrl,availableFrom,availableTo,hotelName} =req.body
+    const {name,category,cuisineType,description,price,imageUrl,hotelName} =req.body
     console.log(name);
 
     const foodItem = await Food.create({
-      name,category,cuisineType,description,price,imageUrl,availableFrom,availableTo,hotelName
+      name,category,cuisineType,description,price,imageUrl,hotelName
     })
 
     if (foodItem) {
@@ -214,12 +214,12 @@ const getCuisine = async (req,res,next)=>{
 // UpdateFoodItem
 const UpdateFoodItem = async (req,res,next)=>{
   try {
-    const {name,category,cuisineType,description,price,imageUrl,availableFrom,availableTo,hotelName} =req.body
+    const {name,category,cuisineType,description,price,imageUrl,hotelName} =req.body
     const {id} = req.params
     console.log('UpdateFoodItem id: ',id);
 
     const updateFoodItem = await Food.findByIdAndUpdate(id,{
-      name,category,cuisineType,description,price,imageUrl,availableFrom,availableTo,hotelName
+      name,category,cuisineType,description,price,imageUrl,hotelName
     },{new:true})
 
     if (updateFoodItem) {
@@ -261,6 +261,14 @@ const updateCategory = async (req,res,next)=>{
     // Capitalize the first letter of the name
     name = name.charAt(0).toUpperCase() + name.slice(1);
 
+    const existingCategory = await Category.findOne({name})
+
+    if (existingCategory) {
+      const error = new Error('Category already exists');
+      error.statusCode = 409; // You can set a custom status code if needed
+      throw error; // Throw the error
+    }
+
 
     const update = await Category.findByIdAndUpdate(id,{
       name
@@ -292,6 +300,14 @@ const updatedCuisine = async (req,res,next)=>{
     // Capitalize the first letter of the name
     name = name.charAt(0).toUpperCase() + name.slice(1);
 
+    const existingCusine = await CuisineType.findOne({name})
+  
+      if (existingCusine) {
+        const error = new Error('Cuisine already exists');
+        error.statusCode = 409; // You can set a custom status code if needed
+        throw error; // Throw the error
+      }
+
     const update = await CuisineType.findByIdAndUpdate(id,{
       name
     },{new:true})
@@ -313,10 +329,57 @@ const cuisineUnBlock = (req,res,next)=>{
   blockUnblockHelper(req,res,next,false, CuisineType)
 }
 
+const getOrders = async (req,res,next)=>{
+  try {
+
+    const orders = await Order.find().populate('items.product').populate('items.hotelId').populate('riderDetails').populate('userId')
+
+    // console.log(orders.items[0].hotelId.hotelName)
+
+    const orderDetails = orders.map((order) => {
+      return {
+        _id: order._id,
+        userId:order.userId.username,
+        items:order.items,
+        total:order.total,
+        riderDetails:order.riderDetails,
+        status:order.status,
+        paymentMethod:order.paymentMethod,
+        pickUpAddress:order.pickUpAddress,
+        DeliveryAddress:order.DeliveryAddress,
+      };
+    });
+
+
+    res.status(201).json({success:true,orderDetails})
+  } catch (error) {
+    console.log(error)
+    next(error)
+  }
+}
+
+const updateDeliveryStatus = async (req,res,next)=>{
+  try {
+    const {id} = req.params
+    const {deliveryStatus} = req.body
+
+    const order = await Order.findByIdAndUpdate(id,{
+      status :deliveryStatus,
+    },{new:true})
+    
+    if (order) {
+      res.status(201).json({success:true,message:"Suceesfully updated"})
+    }
+  } catch (error) {
+    console.log(error)
+    next(error)
+  }
+}
+
 
 export {
   hotelRegister, hotelLogin, addFoodItem,getFoodItem,
   addCategory, getCategory, addCuisine, getCuisine, UpdateFoodItem,
   foodItemBlock, foodItemUnBlock, updateCategory,categoryBlock, categoryUnBlock,
-  updatedCuisine, cuisineBlock, cuisineUnBlock
+  updatedCuisine ,cuisineBlock ,cuisineUnBlock ,getOrders, updateDeliveryStatus
 }

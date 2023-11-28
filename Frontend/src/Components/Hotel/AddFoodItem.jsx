@@ -15,8 +15,7 @@ const AddFoodItem = () => {
     cuisineType:null,
     description:'',
     price:null,
-    availableFrom:null,
-    availableTo:null
+    
   })
 
   let urlImage
@@ -39,10 +38,35 @@ const AddFoodItem = () => {
   }
 
   
-
+  // handel sumbit 
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+    const parsedPrice = parseFloat(foodData.price);
+        
+    if (isNaN(parsedPrice) || parsedPrice <= 0) {
+      setErr('Invalid Price value (should be a negative number)');
+     
+      setTimeout(() => {
+        setErr('');
+      }, 2000);
+
+      return;
+    }
+
+    const allowedExtensions = ['jpg', 'jpeg', 'png', 'gif']; 
+        const fileExtension = photo.name.split('.').pop().toLowerCase();
+
+        if (!allowedExtensions.includes(fileExtension)) {
+          setErr('Invalid file type. Please upload a JPG, JPEG, PNG, or GIF image.');
+          console.log('Invalid file type');
+          setTimeout(() => {
+            setErr('');
+          }, 2000);
+          return;
+        }
+
+
 
     try {
       const formData = new FormData();
@@ -77,8 +101,6 @@ const AddFoodItem = () => {
       description:foodData.description,
       price:foodData.price,
       imageUrl:urlImage,
-      availableFrom:foodData.availableFrom,
-      availableTo:foodData.availableTo,
       hotelName: hotelCred._id,
     }).then((res)=>{
       if (res.data.foodItem) {
@@ -95,6 +117,8 @@ const AddFoodItem = () => {
     })
 
   };
+
+  // fetching cat and cuisine
 
   const [categories,setCategories]= useState([])
   const [cuisineOption,setCuisineOption] = useState([])
@@ -221,34 +245,8 @@ const AddFoodItem = () => {
                 required
                 />
             </div>
-            <div className='flex'>
 
-              <div className='p-1'>
-                  <label htmlFor='availableFrom' className=''>Available From</label>
-                  <input 
-                  type="date"
-                  className='block w-full px-3 py-1 mt-1 text-purple-700 bg-white border rounded-md focus:border-purple-400 focus:ring-purple-300 focus:outline-none focus:ring focus:ring-opacity-40'
-                  value={foodData.availableFrom}
-                  name='availableFrom'
-                  id='availableFrom'
-                  onChange={handleInputChange}
-                  required
-                  />
-              </div>
-              <div className='p-1'>
-                  <label htmlFor='availableTo' className=''>Available To</label>
-                  <input 
-                  type="date"
-                  className='block w-full px-3 py-1 mt-1 text-purple-700 bg-white border rounded-md focus:border-purple-400 focus:ring-purple-300 focus:outline-none focus:ring focus:ring-opacity-40'
-                  value={foodData.availableTo}
-                  name='availableTo'
-                  id='availableTo'
-                  onChange={handleInputChange}
-                  required
-                  />
-              </div>
-            </div>
-            {foodData.category}, {foodData.cuisineType}
+           
             
             <div className='mt-5'>
                 <button className='bg-blue-500 text-white px-4 py-2 border border-gray-300 rounded-md hover:bg-blue-600 focus:outline-none text-base font-semibold' type="submit">

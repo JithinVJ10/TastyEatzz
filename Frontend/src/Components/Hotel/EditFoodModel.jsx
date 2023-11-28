@@ -20,6 +20,8 @@ export default function EditFoodModel({showModal,setShowModal, foodToEdit, setFo
     availableTo: null,
   });
 
+  const [err, setErr] = useState()
+
   const {hotelCred} = useSelector((state)=>state.hotel)
   
   useEffect(() => {
@@ -31,8 +33,7 @@ export default function EditFoodModel({showModal,setShowModal, foodToEdit, setFo
         cuisineType: foodToEdit.cuisineType ? foodToEdit.cuisineType.name : null,
         description: foodToEdit.description || "",
         price: foodToEdit.price || null,
-        availableFrom: foodToEdit.availableFrom || null,
-        availableTo: foodToEdit.availableTo || null,
+        
       });
     }
   }, [foodToEdit]);
@@ -91,6 +92,30 @@ export default function EditFoodModel({showModal,setShowModal, foodToEdit, setFo
     // update food items
     const handleSubmit = async (event) => {
         event.preventDefault();
+
+        const parsedPrice = parseFloat(foodData.price);
+        
+        if (isNaN(parsedPrice) || parsedPrice <= 0) {
+          setErr('Invalid Price value (should be a negative number)');
+         
+          setTimeout(() => {
+            setErr('');
+          }, 2000);
+
+          return;
+        }
+
+        const allowedExtensions = ['jpg', 'jpeg', 'png', 'gif']; 
+        const fileExtension = photo.name.split('.').pop().toLowerCase();
+
+        if (!allowedExtensions.includes(fileExtension)) {
+          setErr('Invalid file type. Please upload a JPG, JPEG, PNG, or GIF image.');
+          console.log('Invalid file type');
+          setTimeout(() => {
+            setErr('');
+          }, 2000);
+          return;
+        }
     
         try {
           const formData = new FormData();
@@ -125,8 +150,6 @@ export default function EditFoodModel({showModal,setShowModal, foodToEdit, setFo
           description:foodData.description,
           price:foodData.price,
           imageUrl:urlImage,
-          availableFrom:foodData.availableFrom,
-          availableTo:foodData.availableTo,
           hotelName: hotelCred._id,
         }).then((res)=>{
           if (res.data.foodItem) {
@@ -260,34 +283,9 @@ export default function EditFoodModel({showModal,setShowModal, foodToEdit, setFo
                             required
                             />
                         </div>
-                        <div className='flex'>
 
-                        <div className='p-1'>
-                            <label htmlFor='availableFrom' className=''>Available From</label>
-                            <input 
-                            type="date"
-                            className='block w-full px-3 py-1 mt-1 text-purple-700 bg-white border rounded-md focus:border-purple-400 focus:ring-purple-300 focus:outline-none focus:ring focus:ring-opacity-40'
-                            value={foodData.availableFrom}
-                            name='availableFrom'
-                            id='availableFrom'
-                            onChange={handleInputChange}
-                            required
-                            />
-                        </div>
-                        <div className='p-1'>
-                            <label htmlFor='availableTo' className=''>Available To</label>
-                            <input 
-                            type="date"
-                            className='block w-full px-3 py-1 mt-1 text-purple-700 bg-white border rounded-md focus:border-purple-400 focus:ring-purple-300 focus:outline-none focus:ring focus:ring-opacity-40'
-                            value={foodData.availableTo}
-                            name='availableTo'
-                            id='availableTo'
-                            onChange={handleInputChange}
-                            required
-                            />
-                        </div>
-                        </div>
-                        {foodData.category}, {foodData.cuisineType}
+                      
+                        <p className="text-red-500">{err}</p>
                         
                 <div className="flex items-center justify-end p-6 border-t border-solid border-blueGray-200 rounded-b">
                   <button
