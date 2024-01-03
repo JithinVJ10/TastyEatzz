@@ -16,6 +16,15 @@ const OrdersList = () => {
             console.log(error);
         })
     },[])
+
+    const handleClick = async (orderId)=>{
+        try {
+            
+        } catch (error) {
+            
+        }
+    }
+
   return (
     <>
     {
@@ -26,7 +35,7 @@ const OrdersList = () => {
                 {
                     orders?.map((order)=>{
                         return (
-                            <div className="flex rounded-lg border p-4 mt-5 shadow-md">
+                            <div onClick={handleClick(order._id)} className="flex rounded-lg border p-4 mt-5 shadow-md">
                                 
                                 <div className="ml-5">
                                     <div className="mt-2 font-semibold"> 

@@ -131,7 +131,7 @@ export default function Header(props) {
                
         
         </Popover.Group> */}
-               <SearchBar title={'Search'}/>
+               <SearchBar title={'Search'} value={props.value} onChange={props.onChange}/>
         <div className="hidden lg:flex lg:flex-1 lg:justify-end">
           <Link to={SHOPPING_CART}>
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6 mr-3">

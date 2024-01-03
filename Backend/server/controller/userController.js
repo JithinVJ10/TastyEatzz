@@ -581,10 +581,28 @@ const getOrders = async (req,res,next)=>{
 }
 
 
+const getSingleOrder = async (req,res,next)=>{
+  try {
+    const {id}= req.params
+
+    const order = await Order.findOne({_id:id})
+
+    if (order) {
+      res.status(201).json({success: true,message:'succesfully fetched', order})
+    }
+
+
+  } catch (error) {
+    console.log(error)
+    next(error)
+  }
+}
+
+
 
 export {
   userRegister, userLogin, googleSignup, googleLogin, UpdateUserDetials,
   getSingleProduct,addTocart,getCart, quantityIncrease, quantityDecrease,
   getLoggedInUser, addUserAddress, getAddress, updateAddress, getSelectedAddress,
-  placeOrder, deleteCartItem, getCategory, getOrders
+  placeOrder, deleteCartItem, getCategory, getOrders, getSingleOrder
 }

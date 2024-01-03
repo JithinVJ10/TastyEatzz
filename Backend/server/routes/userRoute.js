@@ -1,7 +1,7 @@
 import express from 'express'
 import { userRegister, userLogin, googleSignup, googleLogin, UpdateUserDetials, getSingleProduct, 
     addTocart, getCart, quantityIncrease, quantityDecrease, getLoggedInUser, addUserAddress, getAddress, 
-    updateAddress, getSelectedAddress, placeOrder, deleteCartItem, getCategory, getOrders 
+    updateAddress, getSelectedAddress, placeOrder, deleteCartItem, getCategory, getOrders, getSingleOrder 
 } from '../controller/userController.js'
 import protect from '../middleware/authMiddleware.js'
 import { sendOTP, verifyOTP } from '../controller/twilio.js'
@@ -43,6 +43,7 @@ route.put('/deleteCartItem',deleteCartItem)
 route.post('/placeOrder',placeOrder)
 
 route.get('/getOrders/:id',getOrders)
+route.get('/getSingleOrder/:id',getSingleOrder)
 
 
 

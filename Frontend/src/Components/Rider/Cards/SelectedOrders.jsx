@@ -65,7 +65,7 @@ const CurrentOrder = () => {
                       <div className='p-3'>
 
                         <button onClick={()=>takeOrder(order?._id)} class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-                          Take
+                          C
                         </button>
                         
                       </div>
