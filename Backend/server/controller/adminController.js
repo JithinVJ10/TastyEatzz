@@ -5,6 +5,7 @@ import { blockUnblockHelper } from '../utils/blockUnblockHelper.js'
 import generateToken from '../utils/generateToken.js'
 
 
+
 const adminCred = {
     AdminEmail:'admin@gmail.com',
     AdminPassword: '1234'
@@ -127,6 +128,8 @@ const getHotels = async (req,res,next)=>{
   const unBlockHotel = (req,res, next )=>{
     blockUnblockHelper(req,res, next, false, Hotel)
   }
+  
+
   
 
 

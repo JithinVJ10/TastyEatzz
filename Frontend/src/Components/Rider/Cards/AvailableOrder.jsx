@@ -1,26 +1,36 @@
 import React, { useEffect, useState } from 'react'
 import { axiosInstance } from '../../../api/axiosInstance'
 import { useSelector } from 'react-redux'
+import { ToastContainer,toast } from 'react-toastify'
 
-const CurrentOrder = () => {
-  const [orders, setOrders] = useState([])
+const AvailableOrder = () => {
+    const [orders, setOrder] = useState([])
+    const {riderCred} = useSelector((state)=> state.rider)
 
-  const {riderCred} = useSelector((state)=> state.rider)
+    useEffect(()=>{
+      axiosInstance.get('/rider/availableOrders').then((res)=>{
+        if (res.data.success) {
+          setOrder(res.data.orders)
+        }
+      })
+    },[orders])
 
-  useEffect(()=>{
-    axiosInstance.get(`/rider/CurrentOrder/${riderCred._id}`).then((res)=>{
-      if (res.data.success) {
-        setOrders(res.data.order)
+    const takeOrder = async (orderId)=>{
+      try {
+        const res = await axiosInstance.post(`/rider/takeOrder/${riderCred._id}`,{orderId})
+
+        if (res.data.success) {
+          toast.success(res.data.message)
+          console.log('success')
+        }
+      } catch (error) {
+        console.log(error)
       }
-    }).catch((error)=>{
-      console.log(error)
-    })
-  })
+    }
   return (
-    <>
-      <div className='w-4/5 p-4 bg-emerald-300 border rounded-lg'>
+    <div className='w-4/5 p-4 bg-emerald-300 border rounded-lg'>
       <div>
-        <h1 className='font-bold text-2xl'>Current Order</h1>
+        <h1 className='font-bold text-2xl'>Available Order</h1>
       </div>
       <div>
         {
@@ -52,6 +62,14 @@ const CurrentOrder = () => {
                       </p>
                       </div>
                       
+                      <div className='p-3'>
+
+                        <button onClick={()=>takeOrder(order?._id)} class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                          Take
+                        </button>
+                        
+                      </div>
+                      
                   </div>
                   
                 )
@@ -63,8 +81,7 @@ const CurrentOrder = () => {
        
       </div>
     </div>
-    </>
   )
 }
 
-export default CurrentOrder
+export default AvailableOrder

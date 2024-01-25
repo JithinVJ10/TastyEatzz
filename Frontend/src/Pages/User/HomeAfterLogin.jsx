@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react'
 import Header from '../../Components/User/Header/Header'
 import { useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
-import { logout } from '../../Redux/slice/userSlice'
 import {toast} from 'react-toastify'
 import HeroMain from '../../Components/User/Hero/HeroMain'
 import OfferCard from '../../Components/User/Card/OfferCard'
@@ -51,7 +50,7 @@ const HomeAfterLogin = () => {
     if (selectedCategory === null) {
       setSelectedCategory(catagory)
     }
-  },[catagory])
+  },[])
 
   
 
@@ -80,13 +79,13 @@ const HomeAfterLogin = () => {
           <OfferCard title={'Get 10% off'} text={'Off on your next order'} bgColor={'bg-cyan-700'}/>
         </div>
         <div className='mt-20 flex px-20'>
-          <div key="all" onClick={() => filterCategory('all')}>
+          <div className='cursor-pointer' key="all" onClick={() => filterCategory('all')}>
             <CategoryRow category={'Show All'} />
           </div>
           {catagory?.map((item)=>{
             return (
               <>
-              <div onClick={()=>filterCategory(item._id)}>
+              <div key={item._id} className='cursor-pointer' onClick={()=>filterCategory(item._id)}>
                 <CategoryRow category={item.name} />
               </div>
               </>

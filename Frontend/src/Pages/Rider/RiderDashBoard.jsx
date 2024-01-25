@@ -4,6 +4,7 @@ import DataCard from '../../Components/Rider/Cards/DataCard'
 import DashboardProfile from '../../Components/Rider/Cards/DashboardProfile'
 import DeliveryCancel from '../../Components/Rider/Cards/DeliveryCancel'
 import Footer from '../../Components/User/Footer/Footer'
+import AvailableOrder from '../../Components/Rider/Cards/AvailableOrder'
 import CurrentOrder from '../../Components/Rider/Cards/CurrentOrder'
 
 
@@ -16,7 +17,11 @@ const RiderDashBoard = () => {
       </div>
 
       <div className='flex justify-center mt-6'>
-        <CurrentOrder/>
+       <CurrentOrder/>
+      </div>
+
+      <div className='flex justify-center mt-6'>
+        <AvailableOrder/>
       </div>
 
       <div className='flex justify-around mt-16'>

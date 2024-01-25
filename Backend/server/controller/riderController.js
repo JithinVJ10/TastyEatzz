@@ -1,6 +1,8 @@
 import Rider from '../model/riderModel.js'
 import generateToken from '../utils/generateToken.js';
 import Order from '../model/orderModel.js'
+import mongoose from "mongoose";
+
 
 
 // Rider registeration
@@ -186,7 +188,7 @@ const takeOrder = async (req,res,next)=>{
     const {id}= req.params
     const {orderId} = req.body
 
-    console.log(orderId)
+    
 
     const rider = await Rider.findOne({_id:id})
 
@@ -212,7 +214,34 @@ const takeOrder = async (req,res,next)=>{
   }
 }
 
+// cuurent order
+
+const currentOrder = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+
+    const riderOrder = await Order.find({
+      status: 'onDelivery',
+      'riderDetails': new mongoose.Types.ObjectId(id) // Convert id to ObjectId
+    }).populate('riderDetails');
+
+    
+
+    if (riderOrder.length > 0) {
+      res.status(201).json({ message: "Success", order: riderOrder, success: true });
+    } else {
+      throw new Error("No onDelivery orders for the specified rider");
+    }
+  } catch (error) {
+    console.log(error);
+    next(error);
+  }
+};
+
+
+
+
 export {riderRegister, riderLogin, riderVehicleDetails, riderBankDetails, editRiderProfile,
-  availableOrders, takeOrder
+  availableOrders, takeOrder, currentOrder 
   
 }
