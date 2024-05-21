@@ -3,8 +3,9 @@ import { userRegister, userLogin, googleSignup, googleLogin, UpdateUserDetials, 
     addTocart, getCart, quantityIncrease, quantityDecrease, getLoggedInUser, addUserAddress, getAddress, 
     updateAddress, getSelectedAddress, placeOrder, deleteCartItem, getCategory, getOrders, getSingleOrder 
 } from '../controller/userController.js'
-import protect from '../middleware/authMiddleware.js'
+import {protect} from '../middleware/authMiddleware.js'
 import { sendOTP, verifyOTP } from '../controller/twilio.js'
+
 
 const route = express.Router()
 
@@ -22,28 +23,28 @@ route.get('/getLoggedInUser/:id',getLoggedInUser)
 route.post('/SendOTP',sendOTP)
 route.post('/OTPverify',verifyOTP)
 
-route.post('/UpdateUserDetials/:id',UpdateUserDetials)
-route.post('/addUserAddress/:id',addUserAddress)
-route.get('/getAddress/:id',getAddress)
-route.post('/UpdateUserAddress/:id',updateAddress)
-route.get('/getSelectedAddress/:id',getSelectedAddress)
+route.post('/UpdateUserDetials/:id',protect,UpdateUserDetials)
+route.post('/addUserAddress/:id',protect,addUserAddress)
+route.get('/getAddress/:id',protect,getAddress)
+route.post('/UpdateUserAddress/:id',protect,updateAddress)
+route.get('/getSelectedAddress/:id',protect,getSelectedAddress)
 //Products
-route.get('/getSingleProduct/:id',getSingleProduct)
+route.get('/getSingleProduct/:id',protect,getSingleProduct)
 route.get('/getCategory',getCategory)
 // addTocart
-route.post('/addTocart/:id',addTocart)
+route.post('/addTocart/:id',protect,addTocart)
 //getCart
-route.get('/getCart/:id',getCart)
+route.get('/getCart/:id',protect,getCart)
 //Quantity update
 route.patch('/quantityIncrease',quantityIncrease)
 route.patch('/quantityDecrease',quantityDecrease)
 
-route.put('/deleteCartItem',deleteCartItem)
+route.put('/deleteCartItem',protect,deleteCartItem)
 
-route.post('/placeOrder',placeOrder)
+route.post('/placeOrder',protect,placeOrder)
 
-route.get('/getOrders/:id',getOrders)
-route.get('/getSingleOrder/:id',getSingleOrder)
+route.get('/getOrders/:id',protect,getOrders)
+route.get('/getSingleOrder/:id',protect,getSingleOrder)
 
 
 

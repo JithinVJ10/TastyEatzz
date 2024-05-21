@@ -1,37 +1,36 @@
-// adminAuthMiddleware.js
 import jwt from 'jsonwebtoken';
 
 const adminCred = {
-  AdminEmail:'admin@gmail.com',
+  AdminEmail: 'admin@gmail.com',
   AdminPassword: '1234'
-}
+};
 
-export const adminAuthMiddleware = async (req, res , next) => {
-  try { 
-      // console.log(req.header('authorization'), '#######');
-      let token = req.header('authorization').split(' ')[1];
-      
-      if(token === null){         
-        throw new Error("Not authorized or Invalid token");
-      }
+export const adminAuthMiddleware = async (req, res, next) => {
+  try {
+    const authHeader = req.header('authorization');
+    
+    if (!authHeader) {
+      throw new Error('Authorization header is missing');
+    }
 
-      token = token.replaceAll('"',"");
+    const token = authHeader.split(' ')[1];
 
-      const decodedToken = jwt.verify(token, process.env.JWT_Secret);
-      
+    if (!token) {
+      throw new Error('Token is missing or invalid');
+    }
 
-      if(adminCred.AdminEmail === decodedToken.id){
-        req.admin = adminCred;
-        next(); 
-      }else{
-        throw new Error("Not authorized or Invalid token");
-      }
+    const decodedToken = jwt.verify(token, process.env.JWT_Secret);
 
-
+    if (adminCred.AdminEmail === decodedToken.id) {
+      req.admin = adminCred;
+      next();
+    } else {
+      throw new Error('Not authorized or Invalid token');
+    }
   } catch (error) {
-      console.log(error , 'midlwre error');
-      next(error)
+    console.error('Middleware error:', error.message);
+    res.status(401).json({ message: error.message, Status :"Hello" });
   }
-}
+};
 
 export default adminAuthMiddleware;
