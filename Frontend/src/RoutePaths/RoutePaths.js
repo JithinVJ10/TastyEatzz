@@ -53,3 +53,6 @@ export const HOTEL_CUSINE = '/hotelCusine'
 export const HOTEL_ADD_CATEGORY ='/HotelAddCategory'
 export const HOTEL_ADD_CUSINE = '/hotelAddCusine'
 export const HOTEL_ORDER = '/hotelOrders'
+
+
+export const TRACKER = '/Tracker'

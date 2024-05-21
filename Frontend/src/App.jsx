@@ -57,6 +57,7 @@ import HotelCusine from './Pages/Hotel/HotelCusine'
 import AddCusine from './Pages/Hotel/AddCusine'
 import OrderPlaced from './Pages/User/Order/OrderPlaced'
 import HotelOrders from './Pages/Hotel/HotelOrders'
+import LocationTracker from './Pages/Tracker/LocationTracker'
 
 
 
@@ -70,6 +71,8 @@ function App() {
      <Routes> 
       {/* error page */}
       <Route path='*' element={<ErrorPage/> } />
+
+      <Route path={RoutePaths.TRACKER} element={<LocationTracker/> } />
       
       {/* user */}
       <Route path={RoutePaths.HOME} element={<Home />} />
